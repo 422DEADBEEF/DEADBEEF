@@ -7,13 +7,133 @@
     ORG    $1000
 START:                  ; first instruction of program
 
+
+            LEA MSSG, A1        ; load the first message into A1
+            MOVE.B #14,D0       ;
+            TRAP #15            ; display it
+
+            LEA  STARTMSSG, A1  ; load the start message into A1
+            MOVE.B #14,D0       ;
+            TRAP #15            ; display it
+            
+            MOVE.B #2, D0       ; set up to read a string from user
+            TRAP #15            ; Execute Task
+            
+
+            LEA ENDMSSG, A1     ; load the end message into A1
+            MOVE.B #14,D0       ;
+            TRAP #15            ; display it
+            
+            MOVE.B #2, D0       ; set up to read a string from user
+            TRAP #15            ; Execute Task
+
+
 * Put program code here
 
     SIMHALT             ; halt simulator
 
-* Put variables and constants here
+*-------------Variables-----------------
+
+*-------------Constants-----------------
+CR          EQU     $0D
+LF          EQU     $0A
+
+MSSG        DC.B 'Please enter start and ending memroy addresses.',CR,LF,0
+STARTMSSG   DC.B 'Start address: ',0
+ENDMSSG     DC.B 'End address: ',0
+
+NEWLINE     DC.B CR,LF,0
+
+NOPOP       DC.B 'NOP',0
+
+MOVEBOP     DC.B 'MOVE.B ',0
+MOVEWOP     DC.B 'MOVE.W ',0
+MOVELOP     DC.B 'MOVE.L ',0
+
+MOVEAWOP    DC.B 'MOVEA.W ',0
+MOVEALOP    DC.B 'MOVEA.L ',0
+
+MOVEQOP     DC.B 'MOVEQ ',0
+
+MOVEMWOP    DC.B 'MOVEM.W ',0
+MOVEMLOP    DC.B 'MOVEM.L ',0
+
+ADDBOP      DC.B 'ADD.B ',0
+ADDWOP      DC.B 'ADD.W ',0
+ADDLOP      DC.B 'ADD.L ',0
+
+ADDAWOP     DC.B 'ADDA.W ',0
+ADDALOP     DC.B 'ADDA.L ',0
+
+ADDIBOP     DC.B 'ADDI.B ',0
+ADDIWOP     DC.B 'ADDI.W ',0
+ADDILOP     DC.B 'ADDI.L ',0
+
+ADDQBOP     DC.B 'ADDQ.B ',0
+ADDQWOP     DC.B 'ADDQ.W ',0
+ADDQLOP     DC.B 'ADDQ.L ',0
+
+SUBBOP      DC.B 'SUB.B ',0
+SUBWOP      DC.B 'SUB.W ',0
+SUBLOP      DC.B 'SUB.L ',0
+
+SUBIBOP     DC.B 'SUBI.B ',0
+SUBIWOP     DC.B 'SUBI.W ',0
+SUBILOP     DC.B 'SUBI.L ',0
+
+MULSOP      DC.B 'MULS.W ',0  
+
+DIVUOP      DC.B 'DIVU.W ',0
+
+LEAOP       DC.B 'LEA ',0
+
+ANDBOP       DC.B 'AND.B ',0
+ANDWOP       DC.B 'AND.W ',0
+ANDLOP       DC.B 'AND.L ',0
+
+ORBOP       DC.B 'OR.B ',0
+ORWOP       DC.B 'OR.W ',0
+ORLOP       DC.B 'OR.L ',0
+
+LSLBOP      DC.B 'LSL.B ',0
+LSLWOP      DC.B 'LSL.W ',0
+LSLLOP      DC.B 'LSL.L ',0
+
+LSRBOP      DC.B 'LSR.B ',0
+LSRWOP      DC.B 'LSR.W ',0
+LSRLOP      DC.B 'LSR.L ',0
+
+ASLBOP      DC.B 'ASL.B ',0
+ASLWOP      DC.B 'ASL.W ',0
+ASLLOP      DC.B 'ASL.L ',0
+
+ASRBOP      DC.B 'ASR.B ',0
+ASRWOP      DC.B 'ASR.W ',0
+ASRLOP      DC.B 'ASR.L ',0
+
+ROLBOP      DC.B 'ROL.B ',0
+ROLWOP      DC.B 'ROL.W ',0
+ROLLOP      DC.B 'ROL.L ',0
+
+RORBOP      DC.B 'ROR.B ',0
+RORWOP      DC.B 'ROR.W ',0
+RORLOP      DC.B 'ROR.L ',0
+
+BCCOP       DC.B 'BCC ',0
+BLTOP       DC.B 'BLT ',0
+BGTOP       DC.B 'BGT ',0
+
+JSROP       DC.B 'JSR ',0
+RTSOP       DC.B 'RTS',0
+
+BRAOP       DC.B 'BRA ',0
+
+
 
     END    START        ; last line of source
+
+
+
 
 *~Font name~Courier New~
 *~Font size~10~
