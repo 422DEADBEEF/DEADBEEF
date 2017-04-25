@@ -10,18 +10,54 @@
                 *of the current word to decode
                 
 DECODE
-                MOVEM.L     D0-D7/A0-A5, -(SP)  * Save register state
+                    MOVEM.L     D0-D7/A0-A5, -(SP)      * Save register state
+                    
+                    MOVE.L      A6, OPPADDR
+                    
+                    MOVE.W      (A6), D1                * Save OP-Code in D1
+                    AND.W       MASK_HONIBBLE, D1       * Mask out highest-order nibble
                 
-                MOVE.W      (A6), D1            * Save OP-Code in D1
+                    *CMP.W       D1, IMMEDIATE_VALUES
+                    *BEQ         JUMP_IMMEDIATE
+                    
+                    *CMP.W       D1, MOVE_VALUES
+                    *BLE         JUMP_MOVE
+                    
+                    CMP.W       D1, MISC_VALUES
+                    BEQ         JUMP_MISC
+                    
+                    * Add other jump branches
+                    
+                    
+                    
+                    
+                    
+                    
+*JUMP_IMMEDIATE      JSR         BRANCH0
+*                    BRA         END_DECODE
+*JUMP_MOVE           JSR         BRANCH1
+*                    BRA         END_DECODE
+JUMP_MISC           JSR         BRANCH4
+                    BRA         END_DECODE
                 
                 
+END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
+                    RTS
+
                 
                 
-                
-                
-                
-END_DECODE      MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
-                RTS
+IMMEDIATE_VALUES    DC.W    $0000
+MOVE_VALUES         DC.W    $3000
+MISC_VALUES         DC.W    $4000
+
+
+
+
+
+
+
+
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
