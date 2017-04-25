@@ -1,8 +1,8 @@
 *-----------------------------------------------------------
-* Title      : HW2Q3
-* Written by : Cameron Dillon
+* Title      : Hex to String Converter
+* Written by : 0xDEADBEEF
 * Date       : 4/18/2017
-* Description: HW2Q3
+* Description: Converts a hex value in memory to a string
 *-----------------------------------------------------------
 
 
@@ -15,7 +15,7 @@ NUMBER_OFFSET_SC    EQU     $30
 ***         param2 (LONG): NUMBER TO CONVERT
 ***         param3 (LONG): Address of the byte array to build the string into
 HEX_TO_STRING_SC
-    MOVEM       A1/D0-D2, -(SP)         ; Save register states
+    MOVEM.L     A1/D0-D2, -(SP)         ; Save register states
 
     MOVE.B      param1, D0              ; Load Parameters into registers
     MOVE.L      param2, D1
@@ -30,7 +30,7 @@ CONVERSION_LOOP_SC
     
     ROL.L       #4, D1                  ; Put HO nibble into LO nibble
     MOVE.B      D1, D2                  ; Copy lower byte of hex value into D2
-    AND.L       #$0FFFFFFF, D1          ; Remove lower 4 bits of hex value (these are now being converted)
+    AND.L       #$FFFFFFF0, D1          ; Remove lower 4 bits of hex value (these are now being converted)
     AND.B       #$0F, D2                ; Remove higher order nibble
     
     CMP.B       #$A, D2                 ; Does the lower order nibble correspond to a letter or a number?
