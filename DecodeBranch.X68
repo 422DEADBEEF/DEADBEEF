@@ -12,7 +12,7 @@
 DECODE
                     MOVEM.L     D0-D7/A0-A5, -(SP)      * Save register state
                     
-                    MOVE.L      A6, OPPADDR
+                    MOVE.L      A6, OPADDR
                     
                     MOVE.W      (A6), D1                * Save OP-Code in D1
                     AND.W       MASK_HONIBBLE, D1       * Mask out highest-order nibble
@@ -28,6 +28,12 @@ DECODE
                     
                     *CMP.W       D1, ADDQ_VALUE
                     *BEQ         JUMP_ADDQ
+                    
+                    *CMP.W       D1, BRANCH_VALUES
+                    *BEQ         JUMP_BRANCH
+                    
+                    *CMP.W       D1, MOVEQ_VALUE
+                    *BEQ         JUMP_MOVEQ
                     
                     
                     * Add other jump branches
