@@ -220,9 +220,32 @@ RTS_OP      DC.B    'RTS',0
 
 BRA_OP      DC.B    'BRA ',0
 
+*** MASKS AND VALUES ***
+
+MASK_NOP        DC.W    $4E71
+MASK_RTS        DC.W    $4E75
+
+MASK_HONIBBLE   DC.W    $F000
+MASK_OPSIZE     DC.W    $3000
+MASK_SRCREG     DC.W    $0E00
+MASK_SRCMODE    DC.W    $01C0
+MASK_DSTMODE    DC.W    $0038
+MASK_DSTREG     DC.W    $0007
+
+OPSIZEA_B       DC.W    $0000
+OPSIZEA_W       DC.W    $1000
+OPSIZEA_L       DC.W    $2000
+
+OPSIZEB_W       DC.W    $0000
+OPSIZEB_L       DC.W    $1000
+
+OPSIZEC_B       DC.W    $1000
+OPSIZEC_W       DC.W    $3000
+OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
