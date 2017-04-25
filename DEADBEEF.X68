@@ -37,9 +37,19 @@ START:                  ; first instruction of program
             MOVE.B      D1, param2
             JSR         CNVFRMASCII
         
+            
+            MOVEA.L     STARTADDR, A6
+            
+MAIN_LOOP   CMPA        ENDADDR, A6
+            BGT         PRGM_END
+            JSR         DECODE
+            BRA         MAIN_LOOP
         
+        
+            INCLUDE     "DecodeBranch.X68"
             INCLUDE     "StringConverter.X68"
 
+PRGM_END
             SIMHALT                         ; halt simulator    
     
 *------------Subroutines---------------
@@ -247,6 +257,8 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
+
 
 
 
