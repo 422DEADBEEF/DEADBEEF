@@ -58,12 +58,12 @@ PRGM_END
 
 PREP_DATA   MOVE.B      #4, param1
             MOVE.L      (OPADDR), param2
-            MOVE.L      #O1STRING, parma3
+            MOVE.L      #O1STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
 
             MOVE.L      #NO_OP, OPSTRING    ; put 'DATA' into OPSTRING
             MOVE.B      #1, NUMOPERANDS     ; set number of operands as 1
-            RST
+            RTS
 
 *-------------Variables-----------------
 
@@ -211,6 +211,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
