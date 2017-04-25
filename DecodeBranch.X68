@@ -26,6 +26,10 @@ DECODE
                     CMP.W       D1, MISC_VALUES
                     BEQ         JUMP_MISC
                     
+                    *CMP.W       D1, ADDQ_VALUE
+                    *BEQ         JUMP_ADDQ
+                    
+                    
                     * Add other jump branches
                     
                     
@@ -35,10 +39,37 @@ DECODE
                     
 *JUMP_IMMEDIATE      JSR         BRANCH0
 *                    BRA         END_DECODE
+
 *JUMP_MOVE           JSR         BRANCH1
 *                    BRA         END_DECODE
+
 JUMP_MISC           JSR         BRANCH4
                     BRA         END_DECODE
+                    
+*JUMP_ADDQ           JSR         BRANCH5
+*                    BRA         END_DECODE
+
+*JUMP_BRANCH         JSR         BRANCH6
+*                    BRA         END_DECODE
+
+*JUMP_MOVEQ          JSR         BRANCH7
+*                    BRA         END_DECODE
+
+*JUMP_DIVOR          JSR         BRANCH8
+*                    BRA         END_DECODE
+
+*JUMP_SUB            JSR         BRANCH9
+*                    BRA         END_DECODE
+
+*JUMP_MULAND         JSR         BRANCH12
+*                    BRA         END_DECODE
+
+*JUMP_ADD            JSR         BRANCH13
+*                    BRA         END_DECODE
+
+*JUMP_SHIFT          JSR         BRANCH14
+*                    BRA         END_DECODE
+
                 
                 
 END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
@@ -49,7 +80,14 @@ END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
 IMMEDIATE_VALUES    DC.W    $0000
 MOVE_VALUES         DC.W    $3000
 MISC_VALUES         DC.W    $4000
-
+ADDQ_VALUE          DC.W    $5000
+BRANCH_VALUES       DC.W    $6000
+MOVEQ_VALUE         DC.W    $7000
+DIVOR_VALUES        DC.W    $8000
+SUB_VALUE           DC.W    $9000
+MULAND              DC.W    $C000
+ADD_VALUES          DC.W    $D000
+SHIFT_VALUES        DC.W    $E000
 
 
 
