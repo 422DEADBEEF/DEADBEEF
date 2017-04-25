@@ -23,7 +23,7 @@ DECODE
                     *CMP.W       D1, MOVE_VALUES
                     *BLE         JUMP_MOVE
                     
-                    CMP.W       D1, MISC_VALUES
+                    CMP.W       #MISC_VALUES, D1
                     BEQ         JUMP_MISC
                     
                     *CMP.W       D1, ADDQ_VALUE
@@ -96,6 +96,8 @@ SUB_VALUE           DC.W    $9000
 MULAND              DC.W    $C000
 ADD_VALUES          DC.W    $D000
 SHIFT_VALUES        DC.W    $E000
+
+
 
 
 
