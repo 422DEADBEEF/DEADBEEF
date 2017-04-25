@@ -85,17 +85,18 @@ END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
 
                 
                 
-IMMEDIATE_VALUES    DC.W    $0000
-MOVE_VALUES         DC.W    $3000
-MISC_VALUES         DC.W    $4000
-ADDQ_VALUE          DC.W    $5000
-BRANCH_VALUES       DC.W    $6000
-MOVEQ_VALUE         DC.W    $7000
-DIVOR_VALUES        DC.W    $8000
-SUB_VALUE           DC.W    $9000
-MULAND              DC.W    $C000
-ADD_VALUES          DC.W    $D000
-SHIFT_VALUES        DC.W    $E000
+IMMEDIATE_VALUES    EQU     $0000
+MOVE_VALUES         EQU     $3000
+MISC_VALUES         EQU     $4000
+ADDQ_VALUE          EQU     $5000
+BRANCH_VALUES       EQU     $6000
+MOVEQ_VALUE         EQU     $7000
+DIVOR_VALUES        EQU     $8000
+SUB_VALUE           EQU     $9000
+MULAND              EQU     $C000
+ADD_VALUES          EQU     $D000
+SHIFT_VALUES        EQU     $E000
+
 
 
 

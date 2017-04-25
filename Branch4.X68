@@ -7,10 +7,10 @@
 *-----------------------------------------------------------
 
 BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
-            MOVE.L      (A6)+, D0
-            CMP.W       %0100111001110001, D0
+            MOVE.W      (A6)+, D0
+            CMP.W       #%0100111001110001, D0
             BEQ         DC_NOP
-            CMP.W       %0100111001110101, D0
+            CMP.W       #%0100111001110101, D0
             BEQ         DC_RTS
 
             JSR         PREP_DATA
@@ -24,6 +24,7 @@ DC_RTS
 
 BRANCH4EXIT MOVEM.L     (SP)+, D0-D7/A0-A5
             RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~
