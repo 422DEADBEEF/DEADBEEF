@@ -56,7 +56,12 @@ PRGM_END
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
 
-PREP_DATA   MOVE.B      #4, param1
+PREP_DATA   MOVE.B      #8, param1
+            MOVE.L      OPADDR, param2
+            MOVE.L      #OPASTRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+            MOVE.B      #4, param1
             MOVE.L      (OPADDR), param2
             MOVE.L      #O1STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
@@ -85,6 +90,7 @@ OPSTRING    DS.L    1                       ; The address of the string to outpu
 NUMOPERANDS DC.B    0                       ; The number of operands the current opcode has
 O1STRING    DS.B    10                      ; The string for the first operand
 O2STRING    DS.B    10                      ; The string for the second operand
+OPASTRING   DS.B    10                      ; The string with the opcode address
 
 
 *-------------Constants-----------------
@@ -136,7 +142,7 @@ SUBIB_OP    DC.B    'SUBI.B ',0
 SUBIW_OP    DC.B    'SUBI.W ',0
 SUBIL_OP    DC.B    'SUBI.L ',0
 
-MULS_OP     DC.B    'MULS.W ',0  
+MULS_OP     DC.B    'MULS.W ',0
 
 DIVU_OP     DC.B    'DIVU.W ',0
 

@@ -18,9 +18,23 @@ BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
 PRINT4      JSR         PRINTOP
             BRA         BRANCH4EXIT
 
-DC_NOP
+DC_NOP      MOVE.B      #8, param1
+            MOVE.L      OPADDR, param2
+            MOVE.L      #OPASTRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
 
-DC_RTS
+            MOVE.L      #NOP_OP, OPSTRING    ; put 'NOP' into OPSTRING
+            MOVE.B      #0, NUMOPERANDS     ; set number of operands as 0
+            BRA         PRINT4
+
+DC_RTS      MOVE.B      #8, param1
+            MOVE.L      OPADDR, param2
+            MOVE.L      #OPASTRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+            MOVE.L      #RTS_OP, OPSTRING    ; put 'NOP' into OPSTRING
+            MOVE.B      #0, NUMOPERANDS     ; set number of operands as 0
+            BRA         PRINT4
 
 BRANCH4EXIT MOVEM.L     (SP)+, D0-D7/A0-A5
             RTS
