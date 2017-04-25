@@ -5,7 +5,6 @@
 * Description:
 *-----------------------------------------------------------
 
-START           ORG    $1000
 
                 NOP
 
@@ -13,7 +12,7 @@ START           ORG    $1000
                 SIMHALT
 
 
-                END    START        ; last line of source
+
 
 *~Font name~Courier New~
 *~Font size~10~
