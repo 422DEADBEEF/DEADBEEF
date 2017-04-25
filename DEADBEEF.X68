@@ -37,6 +37,8 @@ START:                  ; first instruction of program
             MOVE.B      D1, param2
             JSR         CNVFRMASCII
         
+        
+            INCLUDE     "StringConverter.X68"
 
             SIMHALT                         ; halt simulator    
     
@@ -245,6 +247,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 

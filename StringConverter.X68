@@ -11,12 +11,6 @@ LETTER_OFFSET_SC    EQU     $37
 NUMBER_OFFSET_SC    EQU     $30
    
 *** LEGACY TEST CODE ***
-    MOVE.B      D3, TARGET_VALUE        ; Store the hex value in $A200
-    
-    MOVE.L      #$6000, Addr1           ; Set initial value of Addr1
-    MOVEA.L     #$6001, A0              ; Set starting address for search (checking $6000 is redundant as it is already set to that, inclusive
-    MOVEA.L     #$8000, A1              ; Set ending address for search (inclusive)
-    CLR.L       D0
     
 
     MOVE.L      #8, D0                  ; Number of hex digits in value for function call
@@ -34,7 +28,7 @@ NUMBER_OFFSET_SC    EQU     $30
     
     
 *** FUNCTION: HEX TO STRING ***
-*** ARGS:   D0: NUMBER OF HEX DIGITS TO CONVERT (MAX 8)
+*** ARGS:   Param1: NUMBER OF HEX DIGITS TO CONVERT (MAX 8)
 ***         D1: NUMBER TO CONVERT
 ***         A1: Address of the one past the end of the byte array (ARRAY_START + D0 + 1) to write the string into
 HEX_TO_STRING
@@ -74,6 +68,7 @@ HEXADDRESS_STRING   DS.B    9       ; Storage for the hex string of Addr1 to pri
 
 
     END    START        ; last line of source
+
 
 
 *~Font name~Courier New~
