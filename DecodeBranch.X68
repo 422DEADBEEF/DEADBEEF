@@ -33,9 +33,11 @@ DECODE
                     * Add other jump branches
                     
                     
+                    JSR         PREP_DATA
+                    JSR         PRINTOP
                     
-                    
-                    
+                    ADDQ.W      #2, A6
+                    BRA         END_DECODE
                     
 *JUMP_IMMEDIATE      JSR         BRANCH0
 *                    BRA         END_DECODE
