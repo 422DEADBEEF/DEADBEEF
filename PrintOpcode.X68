@@ -13,7 +13,7 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     OPADDR, A1
             TRAP        #15
 
-            MOVEA.L     #OPTRING, A1
+            MOVEA.L     #OPSTRING, A1
             TRAP        #15
 
             CMP.B       #0, NUMOPERANDS
@@ -32,6 +32,7 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
 
 PRINTEXIT   MOVEM.L     (SP)+, D0/A1
             RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~
