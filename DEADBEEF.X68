@@ -50,7 +50,7 @@ PRGM_END
 
 *------------Subroutines---------------
 
-            INCLUDE     "branch4.X68"
+            *INCLUDE     "branch4.X68"
             INCLUDE     "DecodeBranch.X68"
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
