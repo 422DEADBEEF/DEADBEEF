@@ -55,6 +55,15 @@ PRGM_END
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
 
+PREP_DATA   MOVE.B      #4, param1
+            MOVE.L      (OPADDR), param2
+            MOVE.L      #O1STRING, parma3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+            MOVE.L      #NO_OP, OPSTRING    ; put 'DATA' into OPSTRING
+            MOVE.B      #1, NUMOPERANDS     ; set number of operands as 1
+            RST
+
 *-------------Variables-----------------
 
 param1      DS.L    1
@@ -88,7 +97,7 @@ ENDMSSG     DC.B    'End address: ',0
 NEWLINE     DC.B    CR,LF,0
 OPERANDSEP  DC.B    ', ', 0
 
-NOP_OP      DC.B    'DATA', 0
+NO_OP       DC.B    'DATA', 0
 NOP_OP      DC.B    'NOP',0
 
 MOVEB_OP    DC.B    'MOVE.B ',0
