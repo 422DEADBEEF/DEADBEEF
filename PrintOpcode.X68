@@ -16,7 +16,7 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     #SPACE, A1
             TRAP        #15
 
-            MOVEA.L     #OPSTRING, A1
+            MOVEA.L     OPSTRING, A1
             TRAP        #15
 
             MOVEA.L     #SPACE, A1
