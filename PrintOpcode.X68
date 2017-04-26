@@ -34,6 +34,20 @@ PRINTEXIT   MOVEM.L     (SP)+, D0/A1
             RTS
 
 
+PREP_DATA   MOVE.B      #8, param1
+            MOVE.L      OPADDR, param2
+            MOVE.L      #OPASTRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+            MOVE.B      #4, param1
+            MOVE.L      (OPADDR), param2
+            MOVE.L      #O1STRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+            MOVE.L      #NO_OP, OPSTRING    ; put 'DATA' into OPSTRING
+            MOVE.B      #1, NUMOPERANDS     ; set number of operands as 1
+            RTS
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

@@ -40,7 +40,7 @@ START:                  ; first instruction of program
 
             MOVEA.L     STARTADDR, A6
 
-MAIN_LOOP   CMPA.L        ENDADDR, A6
+MAIN_LOOP   CMPA.L      ENDADDR, A6
             BGT         PRGM_END
             JSR         DECODE
             BRA         MAIN_LOOP
@@ -56,19 +56,6 @@ PRGM_END
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
 
-PREP_DATA   MOVE.B      #8, param1
-            MOVE.L      OPADDR, param2
-            MOVE.L      #OPASTRING, param3
-            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
-
-            MOVE.B      #4, param1
-            MOVE.L      (OPADDR), param2
-            MOVE.L      #O1STRING, param3
-            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
-
-            MOVE.L      #NO_OP, OPSTRING    ; put 'DATA' into OPSTRING
-            MOVE.B      #1, NUMOPERANDS     ; set number of operands as 1
-            RTS
 
 *-------------Variables-----------------
 
