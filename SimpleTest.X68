@@ -7,9 +7,16 @@
 
 
                 NOP
+                NOP
+                NOP
+                RTS
+                RTS
+                NOP
+                RTS
 
 
                 SIMHALT
+
 
 
 
