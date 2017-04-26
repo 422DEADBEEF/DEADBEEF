@@ -24,6 +24,11 @@ HEX_TO_STRING_SC
     
     MOVE.B      #$24, (A1)+
     
+    CMP.B       #4, D0
+    BNE         CONVERSION_LOOP_SC
+    
+    SWAP        D1
+    
 CONVERSION_LOOP_SC
     CMP.B       #0, D0                  ; For each hex value to convert
     BEQ         RETURN_SC
@@ -53,6 +58,7 @@ RETURN_SC
     MOVEM.L     (SP)+, D0-D2/A1         ; Restore registers
     RTS
 *** END FUNCTION ***
+
 
 
 
