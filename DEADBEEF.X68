@@ -40,8 +40,8 @@ START:                  ; first instruction of program
 
             MOVEA.L     STARTADDR, A6
 
-MAIN_LOOP   CMPA.L        ENDADDR, A6
-            BGT         PRGM_END
+MAIN_LOOP   CMPA.L      ENDADDR, A6
+            BGE         PRGM_END
             JSR         DECODE
             BRA         MAIN_LOOP
 
@@ -205,6 +205,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
