@@ -13,13 +13,22 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     #OPASTRING, A1
             TRAP        #15
 
+            MOVEA.L     #SPACE, A1
+            TRAP        #15
+
             MOVEA.L     #OPSTRING, A1
+            TRAP        #15
+
+            MOVEA.L     #SPACE, A1
             TRAP        #15
 
             CMP.B       #0, NUMOPERANDS
             BEQ         PRINTEXIT
 
             MOVEA.L     #O1STRING, A1
+            TRAP        #15
+
+            MOVEA.L     #SPACE, A1
             TRAP        #15
             CMP.B       #1, NUMOPERANDS
             BEQ         PRINTEXIT
@@ -30,7 +39,9 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     #O2STRING, A1
             TRAP        #15
 
-PRINTEXIT   MOVEM.L     (SP)+, D0/A1
+PRINTEXIT   MOVEA.L     #NEWLINE, A1
+            TRAP        #15
+            MOVEM.L     (SP)+, D0/A1
             RTS
 
 

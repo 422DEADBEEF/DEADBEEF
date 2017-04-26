@@ -88,6 +88,7 @@ MSSG        DC.B    'Please enter start and ending memroy addresses.',CR,LF,0
 STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
 
+SPACE       DC.B    ' ', 0
 NEWLINE     DC.B    CR,LF,0
 OPERANDSEP  DC.B    ', ', 0
 
