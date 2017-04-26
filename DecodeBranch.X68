@@ -17,11 +17,12 @@ DECODE
                     MOVE.W      (A6), D1                * Save OP-Code in D1
                     AND.W       MASK_HONIBBLE, D1       * Mask out highest-order nibble
                 
-                    *CMP.W       D1, IMMEDIATE_VALUES
+                    CMP.W       IMMEDIATE_VALUES, D1
+                    BEQ         B1_DATA
                     *BEQ         JUMP_IMMEDIATE
                     
-                    *CMP.W       D1, MOVE_VALUES
-                    *BLE         JUMP_MOVE
+                    CMP.W       #MOVE_VALUES, D1
+                    BLE         JUMP_MOVE
                     
                     CMP.W       #MISC_VALUES, D1
                     BEQ         JUMP_MISC
@@ -38,7 +39,7 @@ DECODE
                     
                     * Add other jump branches
                     
-                    
+B1_DATA                    
                     JSR         PREP_DATA
                     JSR         PRINTOP
                     
@@ -48,8 +49,8 @@ DECODE
 *JUMP_IMMEDIATE      JSR         BRANCH0
 *                    BRA         END_DECODE
 
-*JUMP_MOVE           JSR         BRANCH1
-*                    BRA         END_DECODE
+JUMP_MOVE           JSR         BRANCH1
+                    BRA         END_DECODE
 
 JUMP_MISC           JSR         BRANCH4
                     BRA         END_DECODE
@@ -96,6 +97,10 @@ SUB_VALUE           EQU     $9000
 MULAND              EQU     $C000
 ADD_VALUES          EQU     $D000
 SHIFT_VALUES        EQU     $E000
+
+
+
+
 
 
 

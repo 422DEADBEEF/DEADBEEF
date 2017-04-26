@@ -11,11 +11,13 @@
                 NOP
                 RTS
                 RTS
+                MOVE.B      D1, D2
                 NOP
                 RTS
 
 
                 SIMHALT
+
 
 
 
