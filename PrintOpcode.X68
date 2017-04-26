@@ -10,7 +10,7 @@
 PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVE.B      #14, D0
 
-            MOVEA.L     OPASTRING, A1
+            MOVEA.L     #OPASTRING, A1
             TRAP        #15
 
             MOVEA.L     #OPSTRING, A1
@@ -19,7 +19,7 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             CMP.B       #0, NUMOPERANDS
             BEQ         PRINTEXIT
 
-            MOVEA.L     O1STRING, A1
+            MOVEA.L     #O1STRING, A1
             TRAP        #15
             CMP.B       #1, NUMOPERANDS
             BEQ         PRINTEXIT
@@ -27,7 +27,7 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     #OPERANDSEP, A1
             TRAP        #15
 
-            MOVEA.L     O2STRING, A1
+            MOVEA.L     #O2STRING, A1
             TRAP        #15
 
 PRINTEXIT   MOVEM.L     (SP)+, D0/A1
@@ -47,6 +47,7 @@ PREP_DATA   MOVE.B      #8, param1
             MOVE.L      #NO_OP, OPSTRING    ; put 'DATA' into OPSTRING
             MOVE.B      #1, NUMOPERANDS     ; set number of operands as 1
             RTS
+
 
 *~Font name~Courier New~
 *~Font size~10~
