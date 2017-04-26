@@ -20,7 +20,9 @@ BRANCH1
                         BEQ         MOVEA_OPCODE
 
 MOVE_OPCODE             MOVE.W      D0, D1
-                        AND.W       #MASK_OPSIZE, D1
+                        AND.W       MASK_OPSIZE, D1
+                        LSR.L       #8, D1
+                        LSR.L       #4, D1
                         CMP.W       #1, D1
                         BEQ         MOVE_B
                         CMP.W       #3, D1
@@ -32,7 +34,9 @@ MOVE_OPCODE             MOVE.W      D0, D1
 
 
 MOVEA_OPCODE            MOVE.W      D0, D1
-                        AND.W       #MASK_OPSIZE, D1
+                        AND.W       MASK_OPSIZE, D1
+                        LSR.L       #8, D1
+                        LSR.L       #4, D1
                         CMP.W       #1, D1
                         BEQ         MOVEA_B
                         CMP.W       #3, D1
@@ -55,6 +59,13 @@ MOVEA_W
 MOVEA_L
 
 B1_CONTINUE
+                        CLR         D0
+                        MOVE.B      #8, param1
+                        MOVE.L      OPADDR, param2
+                        MOVE.L      #OPASTRING, param3
+                        JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
+                        
                         JSR     PRINTOP
                     
 END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
@@ -62,6 +73,8 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
+
 
 
 

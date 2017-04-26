@@ -16,6 +16,9 @@ DECODE
                     
                     MOVE.W      (A6), D1                * Save OP-Code in D1
                     AND.W       MASK_HONIBBLE, D1       * Mask out highest-order nibble
+                    
+                    LSR.L       #8, D1
+                    LSR.L       #4, D1
                 
                     CMP.W       IMMEDIATE_VALUES, D1
                     BEQ         B1_DATA
@@ -87,16 +90,17 @@ END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
                 
                 
 IMMEDIATE_VALUES    EQU     $0000
-MOVE_VALUES         EQU     $3000
-MISC_VALUES         EQU     $4000
-ADDQ_VALUE          EQU     $5000
-BRANCH_VALUES       EQU     $6000
-MOVEQ_VALUE         EQU     $7000
-DIVOR_VALUES        EQU     $8000
-SUB_VALUE           EQU     $9000
-MULAND              EQU     $C000
-ADD_VALUES          EQU     $D000
-SHIFT_VALUES        EQU     $E000
+MOVE_VALUES         EQU     $0003
+MISC_VALUES         EQU     $0004
+ADDQ_VALUE          EQU     $0005
+BRANCH_VALUES       EQU     $0006
+MOVEQ_VALUE         EQU     $0007
+DIVOR_VALUES        EQU     $0008
+SUB_VALUE           EQU     $0009
+MULAND              EQU     $000C
+ADD_VALUES          EQU     $000D
+SHIFT_VALUES        EQU     $000E
+
 
 
 
