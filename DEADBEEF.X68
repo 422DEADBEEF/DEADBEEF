@@ -40,7 +40,7 @@ START:                  ; first instruction of program
 
             MOVEA.L     STARTADDR, A6
 
-MAIN_LOOP   CMPA.L      ENDADDR, A6
+MAIN_LOOP   CMPA.L        ENDADDR, A6
             BGT         PRGM_END
             JSR         DECODE
             BRA         MAIN_LOOP
