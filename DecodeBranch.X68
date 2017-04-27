@@ -17,89 +17,69 @@ DECODE
                     MOVE.W      (A6), D1                * Save OP-Code in D1
                     AND.W       MASK_HONIBBLE, D1       * Mask out highest-order nibble
                     
-                    LSR.L       #8, D1
-                    LSR.L       #4, D1
-                
-                    CMP.W       #IMMEDIATE_VALUES, D1
-                    BEQ         MAIN_DATA
-                    *BEQ         JUMP_IMMEDIATE
+                    ROL.W       #4, D1
+                    MULS.W      #10, D1
                     
-                    CMP.W       #MOVE_VALUES, D1
-                    BLE         JUMP_MOVE
+                    LEA         JUMP_TABLE, A0     
+                    JMP         0(A0, D1)
+
+JUMP_TABLE          JSR         MAIN_DATA.L   ;BRANCH0
+                    BRA         END_DECODE
+
+                    JSR         BRANCH1.L
+                    BRA         END_DECODE
+                    JSR         BRANCH1.L
+                    BRA         END_DECODE
+                    JSR         BRANCH1.L
+                    BRA         END_DECODE
+
+                    JSR         BRANCH4.L
+                    BRA         END_DECODE
                     
-                    CMP.W       #MISC_VALUES, D1
-                    BEQ         JUMP_MISC
+                    JSR         MAIN_DATA.L   ;BRANCH5
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH6
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH7
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH8
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH9
+                    BRA         END_DECODE
                     
-                    *CMP.W       D1, ADDQ_VALUE
-                    *BEQ         JUMP_ADDQ
-                    
-                    *CMP.W       D1, BRANCH_VALUES
-                    *BEQ         JUMP_BRANCH
-                    
-                    *CMP.W       D1, MOVEQ_VALUE
-                    *BEQ         JUMP_MOVEQ
-                    
-                    
-                    * Add other jump branches
+                    JSR         MAIN_DATA.L
+                    BRA         END_DECODE
+                    JSR         MAIN_DATA.L
+                    BRA         END_DECODE         
+
+                    JSR         MAIN_DATA.L   ;BRANCH12
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH13
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L   ;BRANCH14
+                    BRA         END_DECODE
+
+                    JSR         MAIN_DATA.L
+                    BRA         END_DECODE                 
                     
 MAIN_DATA                    
                     JSR         PREP_DATA
                     JSR         PRINTOP
                     
                     ADDQ.W      #2, A6
-                    BRA         END_DECODE
+                    RTS
                     
-*JUMP_IMMEDIATE      JSR         BRANCH0
-*                    BRA         END_DECODE
-
-JUMP_MOVE           JSR         BRANCH1
-                    BRA         END_DECODE
-
-JUMP_MISC           JSR         BRANCH4
-                    BRA         END_DECODE
-                    
-*JUMP_ADDQ           JSR         BRANCH5
-*                    BRA         END_DECODE
-
-*JUMP_BRANCH         JSR         BRANCH6
-*                    BRA         END_DECODE
-
-*JUMP_MOVEQ          JSR         BRANCH7
-*                    BRA         END_DECODE
-
-*JUMP_DIVOR          JSR         BRANCH8
-*                    BRA         END_DECODE
-
-*JUMP_SUB            JSR         BRANCH9
-*                    BRA         END_DECODE
-
-*JUMP_MULAND         JSR         BRANCH12
-*                    BRA         END_DECODE
-
-*JUMP_ADD            JSR         BRANCH13
-*                    BRA         END_DECODE
-
-*JUMP_SHIFT          JSR         BRANCH14
-*                    BRA         END_DECODE
-
                 
                 
 END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
                     RTS
 
-                
-                
-IMMEDIATE_VALUES    EQU     $0000
-MOVE_VALUES         EQU     $0003
-MISC_VALUES         EQU     $0004
-ADDQ_VALUE          EQU     $0005
-BRANCH_VALUES       EQU     $0006
-MOVEQ_VALUE         EQU     $0007
-DIVOR_VALUES        EQU     $0008
-SUB_VALUE           EQU     $0009
-MULAND              EQU     $000C
-ADD_VALUES          EQU     $000D
-SHIFT_VALUES        EQU     $000E
 
 
 
