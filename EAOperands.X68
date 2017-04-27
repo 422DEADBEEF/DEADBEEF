@@ -57,50 +57,50 @@ WO_ADDR_REG             CMP.B       #0, D1
                         BEQ         WOAR_6
                         
 
-WODR_0                  LEA         D0_STRING, A0
+WODR_0                  LEA         D0_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_1                  LEA         D1_STRING, A0
+WODR_1                  LEA         D1_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_2                  LEA         D2_STRING, A0
+WODR_2                  LEA         D2_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_3                  LEA         D3_STRING, A0
+WODR_3                  LEA         D3_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_4                  LEA         D4_STRING, A0
+WODR_4                  LEA         D4_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_5                  LEA         D5_STRING, A0
+WODR_5                  LEA         D5_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_6                  LEA         D6_STRING, A0
+WODR_6                  LEA         D6_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WODR_7                  LEA         D7_STRING, A0
+WODR_7                  LEA         D7_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
 
-WOAR_0                  LEA         A0_STRING, A0
+WOAR_0                  LEA         A0_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_1                  LEA         A1_STRING, A0
+WOAR_1                  LEA         A1_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_2                  LEA         A2_STRING, A0
+WOAR_2                  LEA         A2_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_3                  LEA         A3_STRING, A0
+WOAR_3                  LEA         A3_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_4                  LEA         A4_STRING, A0
+WOAR_4                  LEA         A4_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_5                  LEA         A5_STRING, A0
+WOAR_5                  LEA         A5_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
-WOAR_6                  LEA         A6_STRING, A0
+WOAR_6                  LEA         A6_STRING.L, A0
                         MOVE.L      (A0), (A1)
                         BRA         END_WRITE_OPERAND
 
@@ -114,6 +114,7 @@ END_WRITE_OPERAND       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

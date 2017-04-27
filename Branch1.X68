@@ -134,15 +134,10 @@ B1_COPYLOOP_2           CMP.B       #11, D3
                         BRA         B1_COPYLOOP_2
 B1_END_COPYLOOP_2
                         
-                        
-                        
                         JSR         PRINTOP
                         BRA         END_BRANCH1
-                        
-                        
-                        
-                        
-                        
+
+       
 B1_DATA                 JSR         PREP_DATA
                         BRA         B1_PRINT
 
@@ -163,6 +158,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
