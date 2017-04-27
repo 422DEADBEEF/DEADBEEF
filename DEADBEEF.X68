@@ -185,24 +185,24 @@ RTS_OP      DC.B    'RTS',0
 BRA_OP      DC.B    'BRA ',0
 
 
-D0_STRING   DC.W    'D0',0
-D1_STRING   DC.W    'D1',0
-D2_STRING   DC.W    'D2',0
-D3_STRING   DC.W    'D3',0
-D4_STRING   DC.W    'D4',0
-D5_STRING   DC.W    'D5',0
-D6_STRING   DC.W    'D6',0
-D7_STRING   DC.W    'D7',0
+D0_STRING   DC.W    ' D0',0
+D1_STRING   DC.W    ' D1',0
+D2_STRING   DC.W    ' D2',0
+D3_STRING   DC.W    ' D3',0
+D4_STRING   DC.W    ' D4',0
+D5_STRING   DC.W    ' D5',0
+D6_STRING   DC.W    ' D6',0
+D7_STRING   DC.W    ' D7',0
 
-A0_STRING   DC.W    'A0',0
-A1_STRING   DC.W    'A1',0
-A2_STRING   DC.W    'A2',0
-A3_STRING   DC.W    'A3',0
-A4_STRING   DC.W    'A4',0
-A5_STRING   DC.W    'A5',0
-A6_STRING   DC.W    'A6',0
+A0_STRING   DC.W    ' A0',0
+A1_STRING   DC.W    ' A1',0
+A2_STRING   DC.W    ' A2',0
+A3_STRING   DC.W    ' A3',0
+A4_STRING   DC.W    ' A4',0
+A5_STRING   DC.W    ' A5',0
+A6_STRING   DC.W    ' A6',0
 
-SP_STRING   DC.W    'SP',0
+SP_STRING   DC.W    ' SP',0
 
 
 
