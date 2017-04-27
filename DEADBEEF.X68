@@ -81,10 +81,12 @@ NUMOPERANDS DC.B    0                       ; The number of operands the current
 OPADDR      DS.L    1                       ; The address the current opcode starts at
 OPSTRING    DS.L    1                       ; The address of the string to output
 
-O1STRING    DS.B    11                      ; The string for the first operand
-O2STRING    DS.B    11                      ; The string for the second operand
+OPERAND_SIZE    EQU     11
+
+O1STRING    DS.B    OPERAND_SIZE            ; The string for the first operand
+O2STRING    DS.B    OPERAND_SIZE            ; The string for the second operand
 OPASTRING   DS.B    10                      ; The string with the opcode address
-TMPSTRING   DS.B    10
+TMPSTRING   DS.B    OPERAND_SIZE
 
 
 *-------------Constants-----------------
@@ -234,6 +236,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 

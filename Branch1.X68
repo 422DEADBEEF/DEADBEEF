@@ -97,9 +97,14 @@ B1_DETERMINE_OPERANDS
                         LEA         TMPSTRING, A0
                         LEA         O1STRING, A1
                         
-                        MOVE.L      (A0)+, (A1)+
-                        MOVE.L      (A0)+, (A1)+
-                        MOVE.W      (A0)+, (A1)+
+                        MOVE.L      #0, D3
+                        
+B1_COPYLOOP_1           CMP.B       #11, D3
+                        BGE         B1_END_COPYLOOP_1
+                        MOVE.B      (A0)+, (A1)+
+                        ADDQ.B      #1, D3
+                        BRA         B1_COPYLOOP_1
+B1_END_COPYLOOP_1
                         
                         
                         MOVE.W      D0, D1
@@ -119,9 +124,15 @@ B1_DETERMINE_OPERANDS
                         LEA         TMPSTRING, A0
                         LEA         O2STRING, A1
                         
-                        MOVE.L      (A0)+, (A1)+
-                        MOVE.L      (A0)+, (A1)+
-                        MOVE.W      (A0)+, (A1)+
+                        MOVE.L      #0, D3
+
+                        
+B1_COPYLOOP_2           CMP.B       #11, D3
+                        BGE         B1_END_COPYLOOP_2
+                        MOVE.B      (A0)+, (A1)+
+                        ADDQ.B      #1, D3
+                        BRA         B1_COPYLOOP_2
+B1_END_COPYLOOP_2
                         
                         
                         
@@ -152,6 +163,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
