@@ -81,8 +81,8 @@ NUMOPERANDS DC.B    0                       ; The number of operands the current
 OPADDR      DS.L    1                       ; The address the current opcode starts at
 OPSTRING    DS.L    1                       ; The address of the string to output
 
-O1STRING    DS.B    10                      ; The string for the first operand
-O2STRING    DS.B    10                      ; The string for the second operand
+O1STRING    DS.B    11                      ; The string for the first operand
+O2STRING    DS.B    11                      ; The string for the second operand
 OPASTRING   DS.B    10                      ; The string with the opcode address
 TMPSTRING   DS.B    10
 

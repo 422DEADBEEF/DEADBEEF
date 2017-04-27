@@ -1,8 +1,8 @@
 *-----------------------------------------------------------
-* Title      :
-* Written by :
-* Date       :
-* Description:
+* Title      : Print Opcode Subroutine
+* Written by : Jeremy DeHaan
+* Date       : 04/27/2017
+* Description: This subroutine prints out the stuff for the thing
 *-----------------------------------------------------------
 
 **============Print Opcode===========**
@@ -28,8 +28,6 @@ PRINTOP     MOVEM.L     D0/A1, -(SP)
             MOVEA.L     #O1STRING, A1
             TRAP        #15
 
-            MOVEA.L     #SPACE, A1
-            TRAP        #15
             CMP.B       #1, NUMOPERANDS
             BEQ         PRINTEXIT
 
