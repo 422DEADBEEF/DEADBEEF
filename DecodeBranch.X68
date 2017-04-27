@@ -20,8 +20,8 @@ DECODE
                     LSR.L       #8, D1
                     LSR.L       #4, D1
                 
-                    CMP.W       IMMEDIATE_VALUES, D1
-                    BEQ         B1_DATA
+                    CMP.W       #IMMEDIATE_VALUES, D1
+                    BEQ         MAIN_DATA
                     *BEQ         JUMP_IMMEDIATE
                     
                     CMP.W       #MOVE_VALUES, D1
@@ -42,7 +42,7 @@ DECODE
                     
                     * Add other jump branches
                     
-B1_DATA                    
+MAIN_DATA                    
                     JSR         PREP_DATA
                     JSR         PRINTOP
                     
@@ -100,6 +100,8 @@ SUB_VALUE           EQU     $0009
 MULAND              EQU     $000C
 ADD_VALUES          EQU     $000D
 SHIFT_VALUES        EQU     $000E
+
+
 
 
 

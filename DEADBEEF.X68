@@ -67,6 +67,9 @@ param4      DS.L    1
 
 ret         DS.L    1
 
+op1_read    DS.B    1   * should be 0-2 (words)
+op2_read    DS.B    1   * should be 0-2 (words)
+
 
 STARTADDR   DS.L    1
 ENDADDR     DS.L    1
@@ -79,6 +82,7 @@ NUMOPERANDS DC.B    0                       ; The number of operands the current
 O1STRING    DS.B    10                      ; The string for the first operand
 O2STRING    DS.B    10                      ; The string for the second operand
 OPASTRING   DS.B    10                      ; The string with the opcode address
+TMPSTRING   DS.B    10
 
 
 *-------------Constants-----------------
@@ -178,6 +182,28 @@ RTS_OP      DC.B    'RTS',0
 
 BRA_OP      DC.B    'BRA ',0
 
+
+D0_STRING   DC.B    'D0',0
+D1_STRING   DC.B    'D1',0
+D2_STRING   DC.B    'D2',0
+D3_STRING   DC.B    'D3',0
+D4_STRING   DC.B    'D4',0
+D5_STRING   DC.B    'D5',0
+D6_STRING   DC.B    'D6',0
+D7_STRING   DC.B    'D7',0
+
+A0_STRING   DC.B    'A0',0
+A1_STRING   DC.B    'A1',0
+A2_STRING   DC.B    'A2',0
+A3_STRING   DC.B    'A3',0
+A4_STRING   DC.B    'A4',0
+A5_STRING   DC.B    'A5',0
+A6_STRING   DC.B    'A6',0
+
+SP_STRING   DC.B    'SP',0
+
+
+
 *** MASKS AND VALUES ***
 
 MASK_NOP        DC.W    $4E71
@@ -206,6 +232,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
