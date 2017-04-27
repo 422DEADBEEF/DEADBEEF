@@ -59,25 +59,25 @@ MOVE_W                  MOVE.L      #MOVEW_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
                         * figure out O1String
                         * figure out O2String
-                        BRA         B1_CONTINUE
+                        BRA         B1_DETERMINE_OPERANDS
                         
 MOVE_L                  MOVE.L      #MOVEL_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
                         * figure out O1String
                         * figure out O2String
-                        BRA         B1_CONTINUE
+                        BRA         B1_DETERMINE_OPERANDS
                         
 MOVEA_W                 MOVE.L      #MOVEAW_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
                         * figure out O1String
                         * figure out O2String
-                        BRA         B1_CONTINUE
+                        BRA         B1_DETERMINE_OPERANDS
                         
 MOVEA_L                 MOVE.L      #MOVEAL_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
                         * figure out O1String
                         * figure out O2String
-                        BRA         B1_CONTINUE
+                        BRA         B1_DETERMINE_OPERANDS
                         
                         
 B1_DETERMINE_OPERANDS
@@ -92,11 +92,41 @@ B1_DETERMINE_OPERANDS
                         MOVE.W      D0, param1
                         MOVE.W      D1, param2
                         MOVE.W      D2, param3
-                        JSR         WRITE_OPERAND
+                        JSR         WRITE_OPERAND * Writes to TMPSTRING
+                        
+                        LEA         TMPSTRING, A0
+                        LEA         O1STRING, A1
+                        
+                        MOVE.L      (A0)+, (A1)+
+                        MOVE.L      (A0)+, (A1)+
+                        MOVE.W      (A0)+, (A1)+
+                        
+                        
+                        MOVE.W      D0, D1
+                        AND.W       MASK_SRCREG, D1
+                        LSR.L       #8, D1
+                        LSR.L       #1, D1
+                        MOVE.W      D0, D2
+                        AND.W       MASK_SRCMODE, D2
+                        LSR.L       #6, D2
+                        * Lower 3 bits of D1 = source register
+                        * Lower 3 bits of D2 = source mode
+                        MOVE.W      D0, param1
+                        MOVE.W      D1, param2
+                        MOVE.W      D2, param3
+                        JSR         WRITE_OPERAND * Writes to TMPSTRING
+                        
+                        LEA         TMPSTRING, A0
+                        LEA         O2STRING, A1
+                        
+                        MOVE.L      (A0)+, (A1)+
+                        MOVE.L      (A0)+, (A1)+
+                        MOVE.W      (A0)+, (A1)+
                         
                         
                         
-                        
+                        JSR         PRINTOP
+                        BRA         END_BRANCH1
                         
                         
                         

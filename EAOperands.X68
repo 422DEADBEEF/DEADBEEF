@@ -13,11 +13,55 @@ WRITE_OPERAND
                         MOVE.W      param2, D1
                         MOVE.W      param2, D2
                         
+                        LEA         TMPSTRING, A1
+                        
                         CMP.B       #0, D2
-                        BEQ         
+                        BEQ         WO_DATA_REG
                         
                                
                         
+WO_DATA_REG             CMP.B       #0, D1
+                        BEQ         WODR_0
+                        CMP.B       #1, D1
+                        BEQ         WODR_1
+                        CMP.B       #2, D1
+                        BEQ         WODR_2
+                        CMP.B       #3, D1
+                        BEQ         WODR_3
+                        CMP.B       #4, D1
+                        BEQ         WODR_4
+                        CMP.B       #5, D1
+                        BEQ         WODR_5
+                        CMP.B       #6, D1
+                        BEQ         WODR_6
+                        CMP.B       #7, D1
+                        BEQ         WODR_7
+
+WODR_0                  LEA         D0_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_1                  LEA         D1_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_2                  LEA         D2_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_3                  LEA         D3_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_4                  LEA         D4_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_5                  LEA         D5_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_6                  LEA         D6_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+WODR_7                  LEA         D7_STRING, A0
+                        MOVE.L      (A0), (A1)
+                        BRA         END_WRITE_OPERAND
+
 
 
 
@@ -25,6 +69,10 @@ END_WRITE_OPERAND       MOVEM.L     (SP)+, D0-D7/A0-A5
                         RTS
                         
                         * Writes to TMPSTRING
+                        
+                        
+                        
+                        
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~
