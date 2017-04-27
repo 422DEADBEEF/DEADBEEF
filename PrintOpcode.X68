@@ -8,6 +8,12 @@
 **============Print Opcode===========**
 
 PRINTOP     MOVEM.L     D0/A1, -(SP)
+
+            MOVE.B      #8, param1
+            MOVE.L      OPADDR, param2
+            MOVE.L      #OPASTRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+
             MOVE.B      #14, D0
 
             MOVEA.L     #OPASTRING, A1
