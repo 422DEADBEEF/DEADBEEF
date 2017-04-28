@@ -57,6 +57,8 @@ PRGM_END
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
+            INCLUDE     "AddressModes.X68"
+            INCLUDE     "MarlonBrancho.X68"
 
 
 *-------------Variables-----------------
@@ -236,6 +238,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
