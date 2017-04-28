@@ -66,10 +66,49 @@ B0_SUBI_L           MOVE.L      #ADDIL_OP, OPSTRING
                     MOVEQ.B     #2, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 
+B0_COPYLOOP                    
+                    CMP.B       #11, D3
+                    BGE         B0_END_COPYLOOP
+                    MOVE.B      (A0)+, (A1)+
+                    ADDQ.B      #1, D3
+                    BRA         B0_COPYLOOP
+B0_END_COPYLOOP     RTS
+
 
 B0_DETERMINE_OPERANDS
-                    *******************
+                    MOVE.W      D0, param1
+                    MOVE.W      #4, param2
+                    MOVE.W      #7, param3
+                    JSR         WRITE_OPERAND
                     
+                    LEA         TMPSTRING, A0
+                    LEA         01STRING, A1
+                    
+                    MOVE.L      #3, D3
+                    JSR         B0_COPYLOOP
+                    
+                    
+                    MOVE.W      D0, D1
+                    AND.W       MASK_DSTREG, D1
+                    MOVE.W      D0, D2
+                    AND.W       MASK_DSTMODE, D2
+                    LSR.L       #3, D2
+                    
+                    MOVE.W      D0, param1
+                    MOVE.W      D1, param2
+                    MOVE.W      D2, param3
+                    JSR         WRITE_OPERAND
+                    
+                    LEA         TMPSTRING, A0
+                    LEA         02STRING, A1
+                    
+                    MOVE.L      #3, D3
+                    JSR         B0_COPYLOOP
+                    
+
+                    JSR         PRINTOP
+                    BRA         END_BRANCH0
+  
                     
 B0_DATA             JSR         PREP_DATA
                     BRA         B0_PRINT
