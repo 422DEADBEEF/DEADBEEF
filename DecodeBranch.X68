@@ -23,7 +23,7 @@ DECODE
                     LEA         JUMP_TABLE, A0     
                     JMP         0(A0, D1)
 
-JUMP_TABLE          JSR         MAIN_DATA.L   ; Marlon BRANCH0
+JUMP_TABLE          JSR         BRANCH0.L   ; Marlon BRANCH0
                     BRA         END_DECODE
 
                     JSR         BRANCH1.L
@@ -79,6 +79,7 @@ MAIN_DATA
                 
 END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
                     RTS
+
 
 
 
