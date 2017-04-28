@@ -56,7 +56,9 @@ B4_JSR_ADDR MOVE.W      D0,D1
             BRA         B4_DATA
 
 B4_JSR_WA   MOVE.B      #4, param1
-            MOVE.W      (A6)+, param2
+            CLR         D3
+            MOVE.W      (A6)+, D3
+            MOVE.L      D3, param2
             MOVE.L      #O1STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
             BRA         B4_JSR_PRNT
@@ -90,7 +92,9 @@ B4_LEA_ADDR MOVE.W      D0,D1
             BRA         B4_DATA
 
 B4_LEA_WA   MOVE.B      #4, param1
-            MOVE.W      (A6)+, param2
+            CLR         D3
+            MOVE.W      (A6)+, D3
+            MOVE.L      D3, param2
             MOVE.L      #O1STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
             BRA         B4_LEA_PRNT
