@@ -12,8 +12,8 @@ BRANCH0
                     
                     MOVE.B      #2, NUMOPERANDS
                     
-                    AND.W       #B0_ERROR_CHECK
-                    CMP.W       #%0000010000000000
+                    AND.W       #B0_ERROR_CHECK, D1
+                    CMP.W       #%0000010000000000, D1
                     BEQ         B0_DATA
                     
                     MOVE.W      D0, D1
@@ -46,24 +46,24 @@ SUBI_OPCODE
                     BEQ         B0_DATA
                     
 B0_ADDI_B           MOVE.L      #ADDIB_OP, OPSTRING
-                    MOVEQ.B     #1, D6                  * Number of words to read
+                    MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_ADDI_W           MOVE.L      #ADDIW_OP, OPSTRING
-                    MOVEQ.B     #1, D6                  * Number of words to read
+                    MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_ADDI_L           MOVE.L      #ADDIL_OP, OPSTRING
-                    MOVEQ.B     #2, D6                  * Number of words to read
+                    MOVEQ       #2, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 
 
 B0_SUBI_B           MOVE.L      #ADDIB_OP, OPSTRING
-                    MOVEQ.B     #1, D6                  * Number of words to read
+                    MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_SUBI_W           MOVE.L      #ADDIW_OP, OPSTRING
-                    MOVEQ.B     #1, D6                  * Number of words to read
+                    MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_SUBI_L           MOVE.L      #ADDIL_OP, OPSTRING
-                    MOVEQ.B     #2, D6                  * Number of words to read
+                    MOVEQ       #2, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 
 B0_COPYLOOP                    
@@ -82,7 +82,7 @@ B0_DETERMINE_OPERANDS
                     JSR         WRITE_OPERAND
                     
                     LEA         TMPSTRING, A0
-                    LEA         01STRING, A1
+                    LEA         O1STRING, A1
                     
                     MOVE.L      #3, D3
                     JSR         B0_COPYLOOP
@@ -100,7 +100,7 @@ B0_DETERMINE_OPERANDS
                     JSR         WRITE_OPERAND
                     
                     LEA         TMPSTRING, A0
-                    LEA         02STRING, A1
+                    LEA         O2STRING, A1
                     
                     MOVE.L      #3, D3
                     JSR         B0_COPYLOOP
@@ -124,6 +124,11 @@ END_BRANCH0         MOVEM.L     (SP)+, D0-D7/A0-A5
 B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
+
+
+
+
+
 
 
 
