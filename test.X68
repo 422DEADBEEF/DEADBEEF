@@ -14,7 +14,8 @@ start		EQU	$00007000	* ORG and END address
 		ORG	start
 
 * NOP and similar instructions. Should clearly differentiate NOP and RTS from others.
-
+		JSR		add_start
+		LEA		data1,A0
 		NOP			*Required
 		RTS			*Required
 		STOP	#$2000  	* Not required instruction
@@ -67,6 +68,7 @@ multiply	MULS	D0,D3
 		DIVU	(A3),D5	*Optional instruction
 
 		END	start
+
 
 
 
