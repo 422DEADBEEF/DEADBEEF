@@ -18,6 +18,11 @@ BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
             AND.W       #B4_JSR_MASK, D1
             CMP.W       #B4_JSR_MASK, D1
             BEQ         DC_JSR
+            
+            MOVE.W      D0, D1
+            AND.W       #B4_MOVEM_MASK, D1
+            CMP.W       #B4_MOVEM_MASK, D1
+            BEQ         DC_MOVEM
 
             MOVE.W      D0,D1
             AND.W       #B4_LEA_MASK, D1
@@ -73,7 +78,73 @@ B4_JSR_LA   MOVE.B      #8, param1
 B4_JSR_PRNT MOVE.L      #JSR_OP, OPSTRING
             MOVE.B      #1, NUMOPERANDS
             BRA         PRINT4
+  
+          
+******************************************************* WIP
+DC_MOVEM    MOVE.W      D0, D1
+            MOVE.W      D0, D2
+            MOVE.W      D0, D3
+            MOVE.W      D0, D4
+            AND.W       #B4_DEST_ADDR, D1
+            AND.W       #B4_DEST_REG_MASK, D2
+            AND.W       #B4_MOVEM_DIR_MASK, D3
+            AND.W       #B4_MOVEM_SIZE_MASK, D4
+            
+            LSR.W       #8, D3
+            LSR.B       #2, D3
+            
+            LSR.W       #6, D4
+            
+            LSR.B       #3, D1
+            MULS.W      #6, D1
+            
+            LEA         DC_MOVEM_JMP_TABLE, A0
+            JMP         0(A0, D1)
+            
+DC_MOVEM_JMP_TABLE
+            JMP         B4_DATA.L
+            JMP         B4_DATA.L
+            JMP         B4_AddrIndir.L
+            JMP         B4_PostIncr.L
+            JMP         B4_PreIncr.L
+            JMP         B4_DATA.L
+            JMP         B4_DATA.L
+            JMP         B4_AddrAbs.L
+            
 
+B4_AddrIndir
+            BRA         B4_BUILD_OPS
+            
+B4_PostIncr
+            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            BEQ         B4_DATA
+            BRA         B4_BUILD_OPS
+            
+B4_PreIncr
+            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            BNE         B4_DATA
+            BRA         B4_BUILD_OPS
+            
+B4_AddrAbs
+            CMP.B       #1, D2
+            BGT         B4_DATA
+            BRA         B4_BUILD_OPS
+
+B4_BUILD_OPS
+            MOVE.L      #MOVEMW_OP, OPSTRING
+            CMP.B       #0, D4                                  ; Is size a Word?
+            BEQ         B4_MOVEM_ISWORD
+            MOVE.L      #MOVEML_OP, OPSTRING
+            
+B4_MOVEM_ISWORD  
+            MOVE.B      #2, NUMOPERANDS
+            MOVE.L      #O1STRING, param3
+            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            *BNE
+            
+B4_MOVEM_ *****
+
+****************************************************** WIP
 
 
 DC_LEA      MOVE.W      D0,D1
@@ -131,11 +202,18 @@ BRANCH4EXIT MOVEM.L     (SP)+, D0-D7/A0-A5
 B4_JSR_MASK             EQU     %0100111010000000
 B4_MOVEM_MASK           EQU     %0100100010000000
 B4_LEA_MASK             EQU     %0100000111000000
+B4_MOVEM_MASK           EQU     %0100100010000000
 
 B4_DEST_ADDR            EQU     %0000000000111000
 B4_DEST_REG_MASK        EQU     %0000000000000111
 B4_LEA_REG_MASK         EQU     %0000111000000000
+B4_MOVEM_DIR_MASK       EQU     %0000010000000000
+B4_MOVEM_SIZE_MASK      EQU     %0000000001000000
+
 B4_DEST_LADDR           EQU     %0000000000111001
+
+B4_MOVEM_REGtoMEM       EQU     0
+
 
 
 *~Font name~Courier New~
