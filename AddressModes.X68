@@ -14,22 +14,23 @@
 *******************************************
 
 *** EQUATES ***
-AM_An           EQU     $04
-AM_Indir        EQU     $43
-AM_IndirPost    EQU     $C2
-AM_INdirPre     EQU     $47
-AM_Num          EQU     $38
+LETTER_OFFSET_DC    EQU     $41
+NUMBER_OFFSET_DC    EQU     $30
+AM_An               EQU     $04
+AM_Indir            EQU     $46
+AM_IndirPost        EQU     $C6
+AM_INdirPre         EQU     $47
+AM_Num              EQU     $38
 
-
-        MOVEM.L     A0/D0-D1, -(SP)
+        MOVEM.L     A0-A1/D0-D1, -(SP)
         MOVE.B      param1, D0
         LSL.B       #3, D0
         MOVE.B      param2, D1
         MOVEA.L     param3, A0
         
         MULS.W      #6, D1
-        LEA         JUMP_TABLE_AM, A0
-        JMP         0(A0, D1)
+        LEA         JUMP_TABLE_AM, A1
+        JMP         0(A1, D1)
         
         
 JUMP_TABLE_AM
@@ -60,16 +61,26 @@ ADDR_REG_INDIRECTwPRE_DC
         BRA     END_AM_DC
         
 INVALID_DC
-        *** DO SOMETHING ***
+        LSR.B   #3, D0
+        CMP.B   #3, D0
+        BNE     NOT_3_DC
+        *** CATCH CRASH? ***
+        MOVE.B  #2, D0
+        
+NOT_3_DC
+        MOVE.B  D0, ret
+        BRA     NO_BUILD_DC
 
 END_AM_DC
         MOVE.L  param3, param1
+        MOVE.B  D0, param2
         JSR     BUILD_AM_STRING
 
-        MOVEM.L (SP)+, A0/D0-D1
+NO_BUILD_DC
+        MOVEM.L (SP)+, A0-A1/D0-D1
         RTS
 
-
+******************************************
 *** FUNCTION: Build AddressMode String ***
 ***     Args: Param1 (LONG): Address of the buffer to build the string in
 ***           Param2 (BYTE): [+][)][#][#][#][X][(][-]    (It's my special Byte)
@@ -84,7 +95,7 @@ BUILD_AM_STRING
         MOVE.L      D0, D1
         AND.B       #AM_Num, D1
         LSR.B       #3, D1
-        ADD.B       #NUMBER_OFFSET_SC, D1
+        ADD.B       #NUMBER_OFFSET_DC, D1
         
         LSR.B       #1, D0
         BCC         NO_MINUS_DC
@@ -99,12 +110,12 @@ NO_MINUS_DC
         
 NO_OPPAREN_DC
         LSR.B       #1, D0
-        BCC         IS_An_DC
+        BCS         IS_An_DC
         
         ADDQ.B      #3, D2
         
 IS_An_DC
-        ADD.B       #LETTER_OFFSET_SC, D2
+        ADD.B       #LETTER_OFFSET_DC, D2
         MOVE.B      D2, (A0)+
         
         MOVE.B      D1, (A0)+                           ; ADD THE REGISTER NUMBER
@@ -125,8 +136,6 @@ NO_PLUS_DC
         
         MOVEM.L     (SP)+, A0/D0-D2
         RTS
-        
-        
         
         
         
