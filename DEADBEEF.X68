@@ -83,7 +83,7 @@ NUMOPERANDS DC.B    0                       ; The number of operands the current
 OPADDR      DS.L    1                       ; The address the current opcode starts at
 OPSTRING    DS.L    1                       ; The address of the string to output
 
-OPERAND_SIZE    EQU     11
+OPERAND_SIZE    EQU     36
 
 O1STRING    DS.B    OPERAND_SIZE            ; The string for the first operand
 O2STRING    DS.B    OPERAND_SIZE            ; The string for the second operand
@@ -238,6 +238,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
