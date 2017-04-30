@@ -38,6 +38,17 @@ data1		DC.B		$FF,$AA,$45,$0A
 moves		MOVE.B	D0,D1
                 MOVEM.L (A0)+, D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7
                 MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, -(A3)
+                
+                MOVEM.L (A0), D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7
+                MOVEM.L (SP)+, D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7
+                MOVEM.L $2000, D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7                
+                MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, $2000
+                MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, -(A3)
+                MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, (A3)
+
+
+                MOVEM.W D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, $A123
+                MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, -(A3)                
 data5		DC.B	'Here is some interspersed data'
 		
 * Divide and multiple optional instructions
