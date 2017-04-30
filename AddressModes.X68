@@ -22,6 +22,7 @@ AM_IndirPost        EQU     $C6
 AM_INdirPre         EQU     $47
 AM_Num              EQU     $38
 
+DECODE_ADDRESS_MODE_AM
         MOVEM.L     A0-A1/D0-D1, -(SP)
         MOVE.B      param1, D0
         LSL.B       #3, D0
@@ -139,6 +140,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 *~Font name~Courier New~
