@@ -83,7 +83,9 @@ B4_JSR_PRNT MOVE.L      #JSR_OP, OPSTRING
 ******************************************************* WIP
 *** HERE BE DRAGONS ************
 *** May only the brave enter ***
-DC_MOVEM    MOVE.W      D0, D1
+DC_MOVEM    
+            MOVEA.L     #1, A2
+            MOVE.W      D0, D1
             MOVE.W      D0, D2
             MOVE.W      D0, D3
             MOVE.W      D0, D4
@@ -123,6 +125,7 @@ B4_PostIncr
             BRA         B4_BUILD_OPS
             
 B4_PreIncr
+            MOVEA.L     #0, A2
             CMP.B       #B4_MOVEM_REGtoMEM, D3
             BNE         B4_DATA
             BRA         B4_BUILD_OPS
@@ -163,7 +166,7 @@ B4_MOVEM_REGfirst
 B4_REG_LOOP
             CMP.B       #16, D6
             BEQ         B4_REGloopEND
-            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            CMP.W       #0, A2
             BEQ         B4_SHIFT_LEFT
             
             LSR.W       #1, D5
@@ -219,6 +222,7 @@ B4_MOVEM_INCREMENTS
             BRA         B4_REG_LOOP
 
 B4_REGloopEND
+            MOVE.W      D0, D4
             AND.W       #B4_DEST_ADDR, D0
             LSR.B       #3, D0
             MOVE.B      D0, param2
@@ -230,8 +234,30 @@ B4_REGloopEND
             MOVE.L      #O1STRING, param3
             
 B4_OTHER_OP
+            MOVEA.L     param3, A3
             JSR         DECODE_ADDRESS_MODE_AM
-            ADDA.L      #6, A7
+            ADDA.L      #6, SP
+            
+            CMP.B       #$07, D0
+            BNE         B4_MOVEM_PRINT
+            CMP         #1, D2
+            BGT         B4_DATA
+            BEQ         B4_MOVEM_LA
+                    
+B4_MOVEM_WA MOVE.B      #4, param1
+            CLR         D3
+            MOVE.W      (A6)+, D3
+            MOVE.L      D3, param2
+            MOVE.L      A3, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+            BRA         B4_MOVEM_PRINT
+
+B4_MOVEM_LA MOVE.B      #8, param1
+            MOVE.L      (A6)+, param2
+            MOVE.L      A3, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+                       
+B4_MOVEM_PRINT
             BRA         PRINT4
 
 
