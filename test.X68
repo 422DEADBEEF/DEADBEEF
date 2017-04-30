@@ -36,7 +36,8 @@ data1		DC.B		$FF,$AA,$45,$0A
 * Move instructions
 
 moves		MOVE.B	D0,D1
-
+                MOVEM.L (A0)+, D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7
+                MOVEM.L D0/D1/D3/D4/D6/D7/A1/A2/A3/A5/A7, -(A3)
 data5		DC.B	'Here is some interspersed data'
 		
 * Divide and multiple optional instructions
@@ -70,6 +71,7 @@ multiply	MULS	D0,D3
 		DIVU	(A3),D5	*Optional instruction
 
 		END	start
+
 
 
 
