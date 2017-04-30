@@ -82,15 +82,15 @@ NUMOPERANDS DC.B    0                       ; The number of operands the current
 
 OPADDR      DS.L    1                       ; The address the current opcode starts at
 OPSTRING    DS.L    1                       ; The address of the string to output
-
+            
 OPERAND_SIZE    EQU     36
-
+            
 O1STRING    DS.B    OPERAND_SIZE            ; The string for the first operand
 O2STRING    DS.B    OPERAND_SIZE            ; The string for the second operand
 OPASTRING   DS.B    10                      ; The string with the opcode address
 TMPSTRING   DS.B    OPERAND_SIZE
 
-
+            
 *-------------Constants-----------------
 CR          EQU     $0D
 LF          EQU     $0A
@@ -109,7 +109,7 @@ NOP_OP      DC.B    'NOP',0
 MOVEB_OP    DC.B    'MOVE.B ',0
 MOVEW_OP    DC.B    'MOVE.W ',0
 MOVEL_OP    DC.B    'MOVE.L ',0
-
+            
 MOVEAW_OP   DC.B    'MOVEA.W ',0
 MOVEAL_OP   DC.B    'MOVEA.L ',0
 
