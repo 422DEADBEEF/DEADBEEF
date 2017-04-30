@@ -1,6 +1,6 @@
 *-----------------------------------------------------------
-* Title      :
-* Written by :
+* Title      : Branch 4 Decode Subroutines
+* Written by : 
 * Date       :
 * Description: Covers:
 * NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
@@ -81,6 +81,8 @@ B4_JSR_PRNT MOVE.L      #JSR_OP, OPSTRING
   
           
 ******************************************************* WIP
+*** HERE BE DRAGONS ************
+*** May only the brave enter ***
 DC_MOVEM    MOVE.W      D0, D1
             MOVE.W      D0, D2
             MOVE.W      D0, D3
@@ -139,12 +141,101 @@ B4_BUILD_OPS
 B4_MOVEM_ISWORD  
             MOVE.B      #2, NUMOPERANDS
             MOVE.L      #O1STRING, param3
+            MOVE.B      #1, param2
             CMP.B       #B4_MOVEM_REGtoMEM, D3
-            *BNE
+            BEQ         B4_MOVEM_REGfirst
             
-B4_MOVEM_ *****
+            MOVE.L      #O2STRING, param3
+            
+B4_MOVEM_REGfirst  
+            MOVEA.L     param3, A0                              ; keep track of which buffer we used
+            MOVEA.L     A0, A1                                  ; keep track of current location in string
+            
+            MOVE.L      param3, -(SP)
+            MOVE.B      param2, -(SP)
+          
+            MOVE.W      (A6)+, D5
 
-****************************************************** WIP
+            ROR.W       #8, D5
+            MOVE.B      #0, D1
+            MOVE.B      #0, D4
+            MOVE.B      #0, D6
+B4_REG_LOOP
+            CMP.B       #16, D6
+            BEQ         B4_REGloopEND
+            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            BEQ         B4_SHIFT_LEFT
+            
+            LSR.W       #1, D5
+            BRA         B4_MOVEM_AFTERSHIFT
+            
+B4_SHIFT_LEFT
+            LSL.W       #1, D5
+            
+B4_MOVEM_AFTERSHIFT
+            BCC         B4_MOVEM_NOREG
+            MOVE.B      D1, param1                              ; set the current reg num in preparation for building string
+    
+            CMP.B       #1, D7                                  ; was there a register immediately preceeding this one?
+            BLT         B4_FIRSTREG
+            CMP.B       #2, D7                                  ; is this the first subsequent register?
+            BLT         B4_ADD_DASH
+            
+            SUBA.L      #2, A1
+            BRA         B4_BUILDREG
+            
+B4_ADD_DASH
+            MOVE.B      #$2D, (A1)+
+            BRA         B4_BUILDREG
+            
+B4_FIRSTREG
+            CMP.B       #0, D4
+            BEQ         B4_BUILDREG
+            MOVE.B      #$2F, (A1)+
+            
+B4_BUILDREG
+            MOVE.B      (SP), param2
+            MOVE.L      A1, param3
+            JSR         DECODE_ADDRESS_MODE_AM
+            ADDQ.B      #1, D7
+            ADDQ.B      #1, D4
+            BRA         B4_MOVEM_INCREMENTS
+            
+B4_MOVEM_NOREG
+            MOVE.B      #0, D7
+            SUBA.L      #2, A1
+            
+B4_MOVEM_INCREMENTS
+            ADDA.L      #2, A1
+            ADDQ.B      #1, D6
+            ADDQ.B      #1, D1
+            CMP.B       #8, D6
+            BNE         B4_REG_LOOP
+            
+            MOVE.B      #0, D1
+            ADDI.B      #1, (SP)
+            ANDI.B      #$01, (SP)
+            MOVE.B      #0, D7
+            BRA         B4_REG_LOOP
+
+B4_REGloopEND
+            AND.W       #B4_DEST_ADDR, D0
+            LSR.B       #3, D0
+            MOVE.B      D0, param2
+            MOVE.B      D2, param1
+            MOVE.L      #O2STRING, param3     
+            
+            CMP.B       #B4_MOVEM_REGtoMEM, D3
+            BEQ         B4_OTHER_OP
+            MOVE.L      #O1STRING, param3
+            
+B4_OTHER_OP
+            JSR         DECODE_ADDRESS_MODE_AM
+            ADDA.L      #6, A7
+            BRA         PRINT4
+
+
+****************************************************** END WIP
 
 
 DC_LEA      MOVE.W      D0,D1
