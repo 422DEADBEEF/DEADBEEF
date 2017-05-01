@@ -52,6 +52,7 @@ PRGM_END
 
             INCLUDE     "Branch1.X68"
             INCLUDE     "branch4.X68"
+            INCLUDE     "Branch6.X68"
             INCLUDE     "DecodeBranch.X68"
             INCLUDE     "EAOperands.X68"
             INCLUDE     "StringConverter.X68"
@@ -181,7 +182,7 @@ RORL_OP     DC.B    'ROR.L ',0
 
 BCC_OP      DC.B    'BCC ',0
 BLT_OP      DC.B    'BLT ',0
-BGT_OP      DC.B    'BGT ',0
+BGE_OP      DC.B    'BGE ',0
 
 JSR_OP      DC.B    'JSR ',0
 RTS_OP      DC.B    'RTS',0
@@ -238,6 +239,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 

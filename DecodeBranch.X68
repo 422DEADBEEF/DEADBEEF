@@ -36,19 +36,19 @@ JUMP_TABLE          JSR         BRANCH0.L   ; Marlon BRANCH0
                     JSR         BRANCH4.L
                     BRA         END_DECODE
                     
-                    JSR         MAIN_DATA.L   ;BRANCH5
+                    JSR         MAIN_DATA.L   ;BRANCH5.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH6
+                    JSR         BRANCH6.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH7
+                    JSR         MAIN_DATA.L   ;BRANCH7.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH8
+                    JSR         MAIN_DATA.L   ;BRANCH8.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH9
+                    JSR         MAIN_DATA.L   ;BRANCH9.L
                     BRA         END_DECODE
                     
                     JSR         MAIN_DATA.L
@@ -56,13 +56,13 @@ JUMP_TABLE          JSR         BRANCH0.L   ; Marlon BRANCH0
                     JSR         MAIN_DATA.L
                     BRA         END_DECODE         
 
-                    JSR         MAIN_DATA.L   ;BRANCH12
+                    JSR         MAIN_DATA.L   ;BRANCH12.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH13
+                    JSR         MAIN_DATA.L   ;BRANCH13.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH14
+                    JSR         MAIN_DATA.L   ;BRANCH14.L
                     BRA         END_DECODE
 
                     JSR         MAIN_DATA.L
@@ -79,6 +79,7 @@ MAIN_DATA
                 
 END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
                     RTS
+
 
 
 
