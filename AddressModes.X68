@@ -41,6 +41,8 @@ JUMP_TABLE_AM
         JMP     ADDR_REG_INDIRECTwPOST_DC.L
         JMP     ADDR_REG_INDIRECTwPRE_DC.L
         JMP     INVALID_DC.L
+        JMP     INVALID_DC.L
+        JMP     ABSIM_DC.L
         
 DATA_REG_DIRECT_DC
         BRA     END_AM_DC
@@ -61,15 +63,25 @@ ADDR_REG_INDIRECTwPRE_DC
         ADD.B   #AM_IndirPre, D0
         BRA     END_AM_DC
         
-INVALID_DC
+ABSIM_DC
         LSR.B   #3, D0
+        CMP.B   #2, D0
+        BEQ     INVALID_DC
         CMP.B   #3, D0
-        BNE     NOT_3_DC
-        *** CATCH CRASH? ***
+        BEQ     INVALID_DC
+        CMP.B   #4, D0
+        BGT     INVALID_DC
+        BNE     NOT_4_DC
+        
         MOVE.B  #2, D0
         
-NOT_3_DC
+NOT_4_DC
         MOVE.B  D0, ret
+        BRA     NO_BUILD_DC
+        
+INVALID_DC       *** CATCH CRASH? ***
+        MOVE.B  #4, ret
+        MOVE.L  $1001, D0   ; CRASH PROGRAM, KEEP?        
         BRA     NO_BUILD_DC
 
 END_AM_DC
@@ -140,6 +152,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
