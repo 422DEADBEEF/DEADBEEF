@@ -43,18 +43,25 @@ DC_BRANCH_LT
                 BRA         B6_GRAB_DISPLACEMENT
                        
                 
-B6_GRAB_DISPLACEMENT                
+B6_GRAB_DISPLACEMENT
+                CLR.L       D1                
                 MOVE.W      D0, D1
                 AND.W       #B6_DISPLACEMENT_MASK, D1
                 
                 MOVEA.L     A6, A0
                 CMP.B       #0, D1
                 BEQ         B6_GRAB_OP
-                MOVEA.L     D1, A1
+                
+                CMP.L       #$00000080, D1                  ; Is the MSB set? (is the value negative?)
+                BLT         B6_POSITIVE
+                OR.W        #$FF00, D1
+                
+B6_POSITIVE
+                MOVEA.W     D1, A1
                 BRA         B6_CALC_ADDRESS
                 
 B6_GRAB_OP
-                MOVEA.W      (A6)+, A1
+                MOVEA.W     (A6)+, A1
                 BRA         B6_CALC_ADDRESS
                 
 B6_CALC_ADDRESS

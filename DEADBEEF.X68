@@ -171,15 +171,15 @@ ASLL_OP     DC.B    'ASL.L ',0
 ASRB_OP     DC.B    'ASR.B ',0
 ASRW_OP     DC.B    'ASR.W ',0
 ASRL_OP     DC.B    'ASR.L ',0
-
+            
 ROLB_OP     DC.B    'ROL.B ',0
 ROLW_OP     DC.B    'ROL.W ',0
 ROLL_OP     DC.B    'ROL.L ',0
-
+                
 RORB_OP     DC.B    'ROR.B ',0
 RORW_OP     DC.B    'ROR.W ',0
 RORL_OP     DC.B    'ROR.L ',0
-
+                
 BCC_OP      DC.B    'BCC ',0
 BLT_OP      DC.B    'BLT ',0
 BGE_OP      DC.B    'BGE ',0
