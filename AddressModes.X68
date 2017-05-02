@@ -76,18 +76,19 @@ ABSIM_DC
         MOVE.B  #2, D0
         
 NOT_4_DC
+        ADDQ.B  #1, RET
         MOVE.B  D0, ret
         BRA     NO_BUILD_DC
         
 INVALID_DC       *** CATCH CRASH? ***
-        MOVE.B  #4, ret
-        MOVE.L  $1001, D0   ; CRASH PROGRAM, KEEP?        
+        MOVE.B  #4, ret      
         BRA     NO_BUILD_DC
 
 END_AM_DC
         MOVE.L  param3, param1
         MOVE.B  D0, param2
         JSR     BUILD_AM_STRING
+        MOVE.B  #0, ret
 
 NO_BUILD_DC
         MOVEM.L (SP)+, A0-A1/D0-D1
@@ -152,6 +153,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
