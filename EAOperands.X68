@@ -1,112 +1,87 @@
 *-----------------------------------------------------------
-* Title       : WRITE_OPERAND
+* Title       : PREP_OPERANDS
 * Written by  : Ryan Berge
 * Date        : April 26th, 2017
-* Description : Takes in a Mode and a Register and figures 
-*               out what the addressing and thingy are
+* Description : Takes in an addressing mode and reads in
+*               additional operands, advancing A6, and
+*               the O1STRING and O2STRING strings.
 *-----------------------------------------------------------
-                        * param1 = OPCode
-                        * param2 = lower 3 bits are register
-                        * param3 = lower 3 bits are mode
-                        * Writes "answer" to TMPSTRING
-WRITE_OPERAND           
-                        MOVEM.L     D0-D7/A0-A5, -(SP)
-                        MOVE.W      param1, D0
-                        MOVE.W      param2, D1
-                        MOVE.W      param3, D2
+                        * param1.B = Mode:
+                        *            1 = (xxx).w
+                        *            2 = (xxx).l
+                        *            3 = #<xxx>
+                        *            4 = invalid
+                        * param2.B = Mode:
+                        *            1 = (xxx).w
+                        *            2 = (xxx).l
+                        *            3 = #<xxx>
+                        *            4 = invalid
+                        * param3.B = operand1 size
+                        *            0 = N/A
+                        *            1 = word
+                        *            2 = long
+                        * param4.B = operand2 size
+                        *            0 = N/A
+                        *            1 = word
+                        *            2 = long
+                        * Writes to:
+                        *            O1STRING
+                        *            O2STRING
+                        *            NUMOPERANDS
                         
-                        LEA         TMPSTRING, A1
+PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         
-                        CMP.B       #0, D2
-                        BEQ         WO_DATA_REG
-                        CMP.B       #1, D2
-                        BEQ         WO_ADDR_REG
+                        MOVE.B      param1, D1  * op1 mode
+                        MOVE.B      param2, D2  * op2 mode
+                        MOVE.B      param3, D3  * op1 size
+                        MOVE.B      param4, D4  * op2 size
                         
-                               
+                        CLR.L       D5          * parameter
                         
-WO_DATA_REG             CMP.B       #0, D1
-                        BEQ         WODR_0
+                        LEA         O1STRING, A1
+                        LEA         O2STRING, A2
+                        
                         CMP.B       #1, D1
-                        BEQ         WODR_1
+                        BEQ         P1_A_W
                         CMP.B       #2, D1
-                        BEQ         WODR_2
+                        BEQ         P1_A_L
                         CMP.B       #3, D1
-                        BEQ         WODR_3
-                        CMP.B       #4, D1
-                        BEQ         WODR_4
-                        CMP.B       #5, D1
-                        BEQ         WODR_5
-                        CMP.B       #6, D1
-                        BEQ         WODR_6
-                        CMP.B       #7, D1
-                        BEQ         WODR_7
+                        BEQ         P1_L
                         
-WO_ADDR_REG             CMP.B       #0, D1
-                        BEQ         WOAR_0
+EA_P2                   CLR.L       D5
+
+                        CMP.B       #4, D1
+                        BEQ         P2_EMPTY
                         CMP.B       #1, D1
-                        BEQ         WOAR_1
+                        BEQ         P2_A_W
                         CMP.B       #2, D1
-                        BEQ         WOAR_2
+                        BEQ         P2_A_L
                         CMP.B       #3, D1
-                        BEQ         WOAR_3
-                        CMP.B       #4, D1
-                        BEQ         WOAR_4
-                        CMP.B       #5, D1
-                        BEQ         WOAR_5
-                        CMP.B       #6, D1
-                        BEQ         WOAR_6
+                        BEQ         P2_L
                         
+                        
+P1_A_W                  MOVE.W      (A6)+, D5
+                        MOVE.B      #4, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A1, param3
+                        JSR         HEX_TO_STRING_SC
+                        BRA         EA_P2
+                        
+P1_A_L                  MOVE.L      (A6)+, D5
+                        MOVE.B      #8, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A1, param3
+                        JSR         HEX_TO_STRING_SC
+                        BRA         EA_P2
+P1_L
 
-WODR_0                  LEA         D0_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_1                  LEA         D1_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_2                  LEA         D2_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_3                  LEA         D3_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_4                  LEA         D4_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_5                  LEA         D5_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_6                  LEA         D6_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WODR_7                  LEA         D7_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-
-WOAR_0                  LEA         A0_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_1                  LEA         A1_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_2                  LEA         A2_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_3                  LEA         A3_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_4                  LEA         A4_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_5                  LEA         A5_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-WOAR_6                  LEA         A6_STRING.L, A0
-                        MOVE.L      (A0), (A1)
-                        BRA         END_WRITE_OPERAND
-
-
-
-END_WRITE_OPERAND       MOVEM.L     (SP)+, D0-D7/A0-A5
+P2_A_W
+P2_A_L
+P2_L
+P2_EMPTY
+                        
+                        
+END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         RTS
                         
                         * Writes to TMPSTRING
@@ -114,6 +89,27 @@ END_WRITE_OPERAND       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 *~Font name~Courier New~
 *~Font size~10~

@@ -93,10 +93,10 @@ B1_DETERMINE_OPERANDS
                         MOVE.B      D2, param2
                         LEA         O1STRING, A1
                         MOVE.L      A1, param3
-                        JSR         DECODE_ADDRESS_MODE_AM * Writes to TMPSTRING
+                        JSR         DECODE_ADDRESS_MODE_AM
                         
                         
-                        
+                              
                         MOVE.W      D0, D1
                         AND.W       #DSTREG_MASK, D1
                         LSR.L       #8, D1
@@ -110,9 +110,10 @@ B1_DETERMINE_OPERANDS
                         MOVE.B      D2, param2
                         LEA         O2STRING, A1
                         MOVE.L      A1, param3
-                        JSR         DECODE_ADDRESS_MODE_AM * Writes to TMPSTRING
+                        JSR         DECODE_ADDRESS_MODE_AM
                         
                         
+                        JSR         PREP_OPERANDS
                         
                         JSR         PRINTOP
                         BRA         END_BRANCH1
@@ -138,6 +139,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
