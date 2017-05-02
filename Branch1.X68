@@ -89,22 +89,12 @@ B1_DETERMINE_OPERANDS
                         LSR.L       #3, D2
                         * Lower 3 bits of D1 = source register
                         * Lower 3 bits of D2 = source mode
-                        MOVE.W      D0, param1
-                        MOVE.W      D1, param2
-                        MOVE.W      D2, param3
-                        JSR         WRITE_OPERAND * Writes to TMPSTRING
-                        
-                        LEA         TMPSTRING, A0
+                        MOVE.B      D1, param1
+                        MOVE.B      D2, param2
                         LEA         O1STRING, A1
+                        MOVE.L      A1, param3
+                        JSR         DECODE_ADDRESS_MODE_AM * Writes to TMPSTRING
                         
-                        MOVE.L      #0, D3
-                        
-B1_COPYLOOP_1           CMP.B       #11, D3
-                        BGE         B1_END_COPYLOOP_1
-                        MOVE.B      (A0)+, (A1)+
-                        ADDQ.B      #1, D3
-                        BRA         B1_COPYLOOP_1
-B1_END_COPYLOOP_1
                         
                         
                         MOVE.W      D0, D1
@@ -116,23 +106,13 @@ B1_END_COPYLOOP_1
                         LSR.L       #6, D2
                         * Lower 3 bits of D1 = source register
                         * Lower 3 bits of D2 = source mode
-                        MOVE.W      D0, param1
-                        MOVE.W      D1, param2
-                        MOVE.W      D2, param3
-                        JSR         WRITE_OPERAND * Writes to TMPSTRING
-                        
-                        LEA         TMPSTRING, A0
+                        MOVE.B      D1, param1
+                        MOVE.B      D2, param2
                         LEA         O2STRING, A1
+                        MOVE.L      A1, param3
+                        JSR         DECODE_ADDRESS_MODE_AM * Writes to TMPSTRING
                         
-                        MOVE.L      #0, D3
-
                         
-B1_COPYLOOP_2           CMP.B       #11, D3
-                        BGE         B1_END_COPYLOOP_2
-                        MOVE.B      (A0)+, (A1)+
-                        ADDQ.B      #1, D3
-                        BRA         B1_COPYLOOP_2
-B1_END_COPYLOOP_2
                         
                         JSR         PRINTOP
                         BRA         END_BRANCH1
@@ -158,6 +138,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 

@@ -98,7 +98,7 @@ TMPSTRING   DS.B    OPERAND_SIZE
 CR          EQU     $0D
 LF          EQU     $0A
 
-MSSG        DC.B    'Please enter start and ending memroy addresses.',CR,LF,0
+MSSG        DC.B    'Please enter start and ending memory addresses.',CR,LF,0
 STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
 
@@ -238,6 +238,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 

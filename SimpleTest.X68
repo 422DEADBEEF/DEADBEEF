@@ -6,17 +6,17 @@
 *-----------------------------------------------------------
 START           ORG         $7000
 
-                NOP
-                RTS
-                NOP
-                NOP
-                RTS
-                ADDI.B      #64, D2
-                ADDI.W      #524, D4
-                ADDI.L      #587, D1
-                SUBI.B      #98, D2
-                SUBI.W      #154, D4
-                SUBI.L      #165, D1
+                *NOP
+                *RTS
+                *NOP
+                *NOP
+                *RTS
+                *ADDI.B      #64, D2
+                *ADDI.W      #524, D4
+                *ADDI.L      #587, D1
+                *SUBI.B      #98, D2
+                *SUBI.W      #154, D4
+                *SUBI.L      #165, D1
                 MOVE.B      D1, D2
                 MOVE.W      D1, D3
                 ADD.B       D3, D5
@@ -29,6 +29,7 @@ START           ORG         $7000
                 SIMHALT
                 
                 END         START
+
 
 
 
