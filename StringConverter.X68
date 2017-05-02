@@ -27,6 +27,7 @@ HEX_TO_STRING_SC
     CMP.B       #4, D0
     BGT         CONVERSION_LOOP_SC
     SWAP        D1    
+    CMP.B       #4, D0
     BEQ         CONVERSION_LOOP_SC
     ROL.L       #8, D1
     
@@ -61,6 +62,7 @@ RETURN_SC
     MOVEM.L     (SP)+, D0-D2/A1         ; Restore registers
     RTS
 *** END FUNCTION ***
+
 
 
 
