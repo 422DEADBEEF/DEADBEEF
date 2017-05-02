@@ -236,9 +236,6 @@ OPSIZEC_B       DC.W    $1000
 OPSIZEC_W       DC.W    $3000
 OPSIZEC_L       DC.W    $2000
 
-            
-            INCLUDE     "SimpleTest.X68"
-
 
             END     START        ; last line of source
 

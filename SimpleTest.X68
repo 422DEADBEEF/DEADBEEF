@@ -4,13 +4,19 @@
 * Date       :
 * Description:
 *-----------------------------------------------------------
-
+START           ORG         $7000
 
                 NOP
                 RTS
                 NOP
                 NOP
                 RTS
+                ADDI.B      #3, D2
+                ADDI.W      #2, D4
+                ADDI.L      #1, D1
+                SUBI.B      #5, D2
+                SUBI.W      #2, D4
+                SUBI.L      #7, D1
                 MOVE.B      D1, D2
                 MOVE.W      D1, D3
                 ADD.B       D3, D5
@@ -21,6 +27,9 @@
 
 
                 SIMHALT
+                
+                END         START
+
 
 
 
