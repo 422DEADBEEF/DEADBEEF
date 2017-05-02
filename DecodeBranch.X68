@@ -45,7 +45,7 @@ JUMP_TABLE          JSR         BRANCH0.L   ; Marlon BRANCH0
                     JSR         BRANCH7.L
                     BRA         END_DECODE
 
-                    JSR         MAIN_DATA.L   ;BRANCH8.L
+                    JSR         BRANCH8.L
                     BRA         END_DECODE
 
                     JSR         MAIN_DATA.L   ;BRANCH9.L
@@ -79,6 +79,7 @@ MAIN_DATA
                 
 END_DECODE          MOVEM.L     (SP)+, D0-D7/A0-A5  * Restore register state
                     RTS
+
 
 
 

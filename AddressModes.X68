@@ -28,6 +28,7 @@ DECODE_ADDRESS_MODE_AM
         LSL.B       #3, D0
         MOVE.B      param2, D1
         MOVEA.L     param3, A0
+        MOVE.B      #0, ret
         
         MULS.W      #6, D1
         LEA         JUMP_TABLE_AM, A1
@@ -152,6 +153,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 

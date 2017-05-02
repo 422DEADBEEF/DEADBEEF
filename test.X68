@@ -80,8 +80,13 @@ jmplabel	BCC	compares
 *These are not required instructions
 multiply	MULS	D0,D3
 		DIVU	(A3),D5	*Optional instruction
+		DIVU    $4000, D1
+		DIVU    $12345678, D2
+		DIVU    #$97, D7
+		
 
 		END	start
+
 
 
 
