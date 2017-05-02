@@ -1,9 +1,8 @@
 *-----------------------------------------------------------
 * Title      : Branch 4 Decode Subroutines
-* Written by : 
-* Date       :
-* Description: Covers:
-* NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
+* Written by : Jeremy DeHaan, Cameron Dillion
+* Date       : 05/01/2017
+* Description: NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
 *-----------------------------------------------------------
 
 BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
@@ -18,7 +17,7 @@ BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
             AND.W       #B4_JSR_MASK, D1
             CMP.W       #B4_JSR_MASK, D1
             BEQ         DC_JSR
-            
+
             MOVE.W      D0, D1
             AND.W       #B4_MOVEM_MASK, D1
             CMP.W       #B4_MOVEM_MASK, D1
