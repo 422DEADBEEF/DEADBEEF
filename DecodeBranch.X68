@@ -36,7 +36,7 @@ JUMP_TABLE          JSR         BRANCH0.L   ; Marlon BRANCH0
                     JSR         BRANCH4.L
                     BRA         END_DECODE
                     
-                    JSR         MAIN_DATA.L   ;BRANCH5.L
+                    JSR         BRANCH5.L
                     BRA         END_DECODE
 
                     JSR         BRANCH6.L

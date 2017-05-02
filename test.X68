@@ -18,6 +18,9 @@ start		EQU	$00007000	* ORG and END address
 		JSR     $0001
 		LEA     data1,A0
 		LEA     $0001, A0
+		ADDQ.B	#4, D1
+	    ADDQ.W	#2, D3
+	    ADDQ.L	#5, D6
 		NOP                     *Required
 		RTS                     *Required
 		STOP	#$2000          * Not required instruction
