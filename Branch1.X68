@@ -83,9 +83,9 @@ MOVEA_L                 MOVE.L      #MOVEAL_OP, OPSTRING
 B1_DETERMINE_OPERANDS
                         
                         MOVE.W      D0, D1
-                        AND.W       MASK_DSTREG, D1
+                        AND.W       #SRCREG_MASK, D1
                         MOVE.W      D0, D2
-                        AND.W       MASK_DSTMODE, D2
+                        AND.W       #SRCMODE_MASK, D2
                         LSR.L       #3, D2
                         * Lower 3 bits of D1 = source register
                         * Lower 3 bits of D2 = source mode
@@ -98,11 +98,11 @@ B1_DETERMINE_OPERANDS
                         
                         
                         MOVE.W      D0, D1
-                        AND.W       MASK_SRCREG, D1
+                        AND.W       #DSTREG_MASK, D1
                         LSR.L       #8, D1
                         LSR.L       #1, D1
                         MOVE.W      D0, D2
-                        AND.W       MASK_SRCMODE, D2
+                        AND.W       #DSTMODE_MASK, D2
                         LSR.L       #6, D2
                         * Lower 3 bits of D1 = source register
                         * Lower 3 bits of D2 = source mode
