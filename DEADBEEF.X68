@@ -220,10 +220,15 @@ MASK_RTS        DC.W    $4E75
                 
 MASK_HONIBBLE   DC.W    $F000
 MASK_OPSIZE     DC.W    $3000
-MASK_SRCREG     DC.W    $0E00
-MASK_SRCMODE    DC.W    $01C0
-MASK_DSTMODE    DC.W    $0038
-MASK_DSTREG     DC.W    $0007
+MASK_SRCREG     DC.W    $0E00 *misleading name --- deprecated
+MASK_SRCMODE    DC.W    $01C0 *misleading name --- deprecated
+MASK_DSTMODE    DC.W    $0038 *misleading name --- deprecated
+MASK_DSTREG     DC.W    $0007 *misleading name --- deprecated
+
+SRCMODE_MASK    EQU     $0038 *not misleading name --- 21st century code
+SRCREG_MASK     EQU     $0007 *not misleading name --- 21st century code
+DSTMODE_MASK    EQU     $01C0 *not misleading name --- 21st century code
+DSTREG_MASK     EQU     $0E00 *not misleading name --- 21st century code
 
 OPSIZEA_B       DC.W    $0000
 OPSIZEA_W       DC.W    $1000
@@ -238,6 +243,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
