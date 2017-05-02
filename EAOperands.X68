@@ -45,19 +45,23 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         BEQ         P1_A_W
                         CMP.B       #2, D1
                         BEQ         P1_A_L
-                        CMP.B       #3, D1
+                        CMP.B       #1, D3
+                        BEQ         P1_L
+                        CMP.B       #2, D3
                         BEQ         P1_L
                         
 EA_P2                   CLR.L       D5
 
-                        CMP.B       #4, D1
+                        CMP.B       #4, D2
                         BEQ         P2_EMPTY
-                        CMP.B       #1, D1
+                        CMP.B       #1, D2
                         BEQ         P2_A_W
-                        CMP.B       #2, D1
+                        CMP.B       #2, D2
                         BEQ         P2_A_L
-                        CMP.B       #3, D1
-                        BEQ         P2_L
+                        CMP.B       #1, D4
+                        BEQ         P2_L_W
+                        CMP.B       #2, D4
+                        BEQ         P2_L_L
                         
                         
 P1_A_W                  MOVE.W      (A6)+, D5
@@ -65,6 +69,7 @@ P1_A_W                  MOVE.W      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
+                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
                         
 P1_A_L                  MOVE.L      (A6)+, D5
@@ -72,14 +77,63 @@ P1_A_L                  MOVE.L      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
+                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
-P1_L
-
-P2_A_W
-P2_A_L
-P2_L
-P2_EMPTY
                         
+P1_L_W                  MOVE.W      (A6)+, D5
+                        MOVE.B      #POUND, (A1)+
+                        MOVE.B      #4, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A1, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #1, NUMOPERANDS
+                        BRA         EA_P2
+                        
+P1_L_L                  MOVE.L      (A6)+, D5
+                        MOVE.B      #POUND, (A1)+
+                        MOVE.B      #8, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A1, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #1, NUMOPERANDS
+                        BRA         EA_P2
+
+P2_A_W                  MOVE.W      (A6)+, D5
+                        MOVE.B      #4, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A2, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #2, NUMOPERANDS
+                        BRA         END_PREP_OPERANDS
+                        
+P2_A_L                  MOVE.L      (A6)+, D5
+                        MOVE.B      #8, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A2, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #2, NUMOPERANDS
+                        BRA         END_PREP_OPERANDS
+                        
+P2_L_W                  MOVE.W      (A6)+, D5
+                        MOVE.B      #POUND, (A1)+
+                        MOVE.B      #4, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A2, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #2, NUMOPERANDS
+                        BRA         END_PREP_OPERANDS
+                        
+P2_L_L                  MOVE.W      (A6)+, D5
+                        MOVE.B      #POUND, (A1)+
+                        MOVE.B      #4, param1
+                        MOVE.L      D5, param2
+                        MOVE.L      A2, param3
+                        JSR         HEX_TO_STRING_SC
+                        MOVE.B      #2, NUMOPERANDS
+                        BRA         END_PREP_OPERANDS
+                        
+P2_EMPTY                MOVE.B      #1, NUMOPERANDS
+
                         
 END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         RTS
