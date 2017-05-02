@@ -53,6 +53,7 @@ PRGM_END
             INCLUDE     "Branch1.X68"
             INCLUDE     "branch4.X68"
             INCLUDE     "Branch6.X68"
+            INCLUDE     "Branch7.X68"
             INCLUDE     "DecodeBranch.X68"
             INCLUDE     "EAOperands.X68"
             INCLUDE     "StringConverter.X68"
@@ -212,10 +213,10 @@ SP_STRING   DC.W    'SP',0
 
 
 *** MASKS AND VALUES ***
-
+                
 MASK_NOP        DC.W    $4E71
 MASK_RTS        DC.W    $4E75
-
+                
 MASK_HONIBBLE   DC.W    $F000
 MASK_OPSIZE     DC.W    $3000
 MASK_SRCREG     DC.W    $0E00
