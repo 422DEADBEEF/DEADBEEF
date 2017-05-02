@@ -46,9 +46,9 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         CMP.B       #2, D1
                         BEQ         P1_A_L
                         CMP.B       #1, D3
-                        BEQ         P1_L
+                        BEQ         P1_L_W
                         CMP.B       #2, D3
-                        BEQ         P1_L
+                        BEQ         P1_L_L
                         
 EA_P2                   CLR.L       D5
 
@@ -144,6 +144,7 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
 
 
 
