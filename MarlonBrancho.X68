@@ -79,7 +79,7 @@ B0_DETERMINE_OPERANDS
                     MOVE.W      D0, param1
                     MOVE.W      #4, param2
                     MOVE.W      #7, param3
-                    JSR         WRITE_OPERAND
+                    JSR         PREP_OPERANDS
                     
                     LEA         TMPSTRING, A0
                     LEA         O1STRING, A1
@@ -97,7 +97,7 @@ B0_DETERMINE_OPERANDS
                     MOVE.W      D0, param1
                     MOVE.W      D1, param2
                     MOVE.W      D2, param3
-                    JSR         WRITE_OPERAND
+                    JSR         PREP_OPERANDS
                     
                     LEA         TMPSTRING, A0
                     LEA         O2STRING, A1
@@ -124,6 +124,7 @@ END_BRANCH0         MOVEM.L     (SP)+, D0-D7/A0-A5
 B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
+
 
 
 
