@@ -1,3 +1,4 @@
+
 *-----------------------------------------------------------
 * Title       : PREP_OPERANDS
 * Written by  : Ryan Berge
@@ -24,6 +25,11 @@
                         *            0 = N/A
                         *            1 = word
                         *            2 = long
+                        * param5.B = operand order
+                        *            0 = O1
+                        *            1 = O1, O2
+                        *            2 = O1, ---
+                        *            3 = ---, O2
                         * Writes to:
                         *            O1STRING
                         *            O2STRING
@@ -35,12 +41,21 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         MOVE.B      param2, D2  * op2 mode
                         MOVE.B      param3, D3  * op1 size
                         MOVE.B      param4, D4  * op2 size
+                        MOVE.B      param5, D6  * operand order
                         
                         CLR.L       D5          * parameter
                         
-                        LEA         O1STRING, A1
+                        MOVE.B      #2, NUMOPERANDS
+                        CMP.B       #0, D6
+                        BEQ         SIZE_CONTINUE
+                        MOVE.B      #1, NUMOPERANDS
+                        
+                        
+SIZE_CONTINUE           LEA         O1STRING, A1
                         LEA         O2STRING, A2
                         
+                        CMP.B       #0, D1
+                        BEQ         P1_NOP
                         CMP.B       #1, D1
                         BEQ         P1_A_W
                         CMP.B       #2, D1
@@ -52,6 +67,8 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         
 EA_P2                   CLR.L       D5
 
+                        CMP.B       #0, D2
+                        BEQ         END_PREP_OPERANDS
                         CMP.B       #4, D2
                         BEQ         P2_EMPTY
                         CMP.B       #1, D2
@@ -63,13 +80,13 @@ EA_P2                   CLR.L       D5
                         CMP.B       #2, D4
                         BEQ         P2_L_L
                         
+P1_NOP                  BRA         EA_P2                        
                         
 P1_A_W                  MOVE.W      (A6)+, D5
                         MOVE.B      #4, param1
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
                         
 P1_A_L                  MOVE.L      (A6)+, D5
@@ -77,7 +94,6 @@ P1_A_L                  MOVE.L      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
                         
 P1_L_W                  MOVE.W      (A6)+, D5
@@ -86,7 +102,6 @@ P1_L_W                  MOVE.W      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
                         
 P1_L_L                  MOVE.L      (A6)+, D5
@@ -95,7 +110,6 @@ P1_L_L                  MOVE.L      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #1, NUMOPERANDS
                         BRA         EA_P2
 
 P2_A_W                  MOVE.W      (A6)+, D5
@@ -103,7 +117,6 @@ P2_A_W                  MOVE.W      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A2, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #2, NUMOPERANDS
                         BRA         END_PREP_OPERANDS
                         
 P2_A_L                  MOVE.L      (A6)+, D5
@@ -111,7 +124,6 @@ P2_A_L                  MOVE.L      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A2, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #2, NUMOPERANDS
                         BRA         END_PREP_OPERANDS
                         
 P2_L_W                  MOVE.W      (A6)+, D5
@@ -120,7 +132,6 @@ P2_L_W                  MOVE.W      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A2, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #2, NUMOPERANDS
                         BRA         END_PREP_OPERANDS
                         
 P2_L_L                  MOVE.W      (A6)+, D5
@@ -129,10 +140,9 @@ P2_L_L                  MOVE.W      (A6)+, D5
                         MOVE.L      D5, param2
                         MOVE.L      A2, param3
                         JSR         HEX_TO_STRING_SC
-                        MOVE.B      #2, NUMOPERANDS
                         BRA         END_PREP_OPERANDS
                         
-P2_EMPTY                MOVE.B      #1, NUMOPERANDS
+P2_EMPTY                
 
                         
 END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
@@ -144,6 +154,8 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
+
 
 
 

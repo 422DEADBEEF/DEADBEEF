@@ -51,32 +51,27 @@ MOVEA_OPCODE            MOVE.B      #2, D7          * D7 = 2 means this is MOVEA
 
 MOVE_B                  MOVE.L      #MOVEB_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
-                        * figure out O1String
-                        * figure out O2String
+                        MOVE.B      #1, D6
                         BRA         B1_DETERMINE_OPERANDS
                         
 MOVE_W                  MOVE.L      #MOVEW_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
-                        * figure out O1String
-                        * figure out O2String
+                        MOVE.B      #1, D6
                         BRA         B1_DETERMINE_OPERANDS
                         
 MOVE_L                  MOVE.L      #MOVEL_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
-                        * figure out O1String
-                        * figure out O2String
+                        MOVE.B      #2, D6
                         BRA         B1_DETERMINE_OPERANDS
                         
 MOVEA_W                 MOVE.L      #MOVEAW_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
-                        * figure out O1String
-                        * figure out O2String
+                        MOVE.B      #1, D6
                         BRA         B1_DETERMINE_OPERANDS
                         
 MOVEA_L                 MOVE.L      #MOVEAL_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
-                        * figure out O1String
-                        * figure out O2String
+                        MOVE.B      #2, D6
                         BRA         B1_DETERMINE_OPERANDS
                         
                         
@@ -94,7 +89,8 @@ B1_DETERMINE_OPERANDS
                         LEA         O1STRING, A1
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
-                        
+                        MOVE.B      ret, param1
+                        MOVE.B      D6, param3
                         
                               
                         MOVE.W      D0, D1
@@ -111,6 +107,8 @@ B1_DETERMINE_OPERANDS
                         LEA         O2STRING, A1
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
+                        MOVE.B      ret, param2
+                        MOVE.B      D6, param4
                         
                         
                         JSR         PREP_OPERANDS
@@ -139,6 +137,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
