@@ -61,7 +61,7 @@ B8_DU_ABSWORD       MOVE.W      (A6)+, D1
                     BRA         B8_DU_BUILDOP
                     
 B8_DU_ABSLONG       MOVE.L      (A6)+, D1
-                    MOVE.W      #8, param1
+                    MOVE.B      #8, param1
                     BRA         B8_DU_BUILDOP
                     
                     
@@ -84,6 +84,7 @@ BRANCH8EXIT         MOVEM.L     (SP)+, D0-D7/A0-A5
 
 
 B8_DIVU_MASK        EQU     $80C0
+
 
 *~Font name~Courier New~
 *~Font size~10~
