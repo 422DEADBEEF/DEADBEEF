@@ -47,7 +47,7 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         
                         MOVE.B      #2, NUMOPERANDS
                         CMP.B       #0, D6
-                        BEQ         SIZE_CONTINUE
+                        BNE         SIZE_CONTINUE
                         MOVE.B      #1, NUMOPERANDS
                         
                         
@@ -154,6 +154,7 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
 
 
 

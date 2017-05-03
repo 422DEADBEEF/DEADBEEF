@@ -77,6 +77,7 @@ MOVEA_L                 MOVE.L      #MOVEAL_OP, OPSTRING
                         
 B1_DETERMINE_OPERANDS
                         
+                        
                         MOVE.W      D0, D1
                         AND.W       #SRCREG_MASK, D1
                         MOVE.W      D0, D2
@@ -89,8 +90,8 @@ B1_DETERMINE_OPERANDS
                         LEA         O1STRING, A1
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
-                        MOVE.B      ret, param1
-                        MOVE.B      D6, param3
+                        MOVE.B      ret, D3                  * ret, param1
+                        MOVE.B      D6, D4                  * D6, param3
                         
                               
                         MOVE.W      D0, D1
@@ -107,8 +108,12 @@ B1_DETERMINE_OPERANDS
                         LEA         O2STRING, A1
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
+                        
                         MOVE.B      ret, param2
                         MOVE.B      D6, param4
+                        MOVE.B      D3, param1
+                        MOVE.B      D4, param3
+                        MOVE.B      #1, param5
                         
                         
                         JSR         PREP_OPERANDS
@@ -137,6 +142,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
