@@ -34,13 +34,13 @@ B8_DIVU_DC          MOVE.L      #DIVU_OP, OPSTRING
                     
                     MOVE.B      D2, param1
                     MOVE.B      D1, param2
-                    MOVE.L      #O2STRING, param3
+                    MOVE.L      #O1STRING, param3
                     JSR         DECODE_ADDRESS_MODE_AM
                     
                     CLR.L       D1
                     CLR.L       D2
                     
-                    MOVE.L      #O2STRING, param3
+                    MOVE.L      #O1STRING, param3
                     MOVE.B      ret, D3
                     MULS.W      #6, D3
                     LEA         B8_DIVU_JMPTABLE, A0
@@ -77,12 +77,14 @@ B8_DATA             JSR         PREP_DATA
             
 
                     
-BRANCH8PRINT        ***DO STUFF***                    
+BRANCH8PRINT        JSR         PRINTOP
+                   
 BRANCH8EXIT         MOVEM.L     (SP)+, D0-D7/A0-A5
                     RTS
 
 
 B8_DIVU_MASK        EQU     $80C0
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

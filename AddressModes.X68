@@ -77,6 +77,7 @@ ABSIM_DC
         MOVE.B  #2, D0
         
 NOT_4_DC
+        ADDQ.B  #1, D0
         MOVE.B  D0, ret
         BRA     NO_BUILD_DC
         
@@ -153,6 +154,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
