@@ -84,7 +84,7 @@ DC_ADDQ_WA  MOVE.B      #4, param1
             BRA         B5_PRINT
 
 
-DC_ADDQ_LA  MOVE.B      #4, param1
+DC_ADDQ_LA  MOVE.B      #8, param1
             CLR         D6
             MOVE.L      (A6)+, D6
             MOVE.L      D6, param2
