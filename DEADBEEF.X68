@@ -39,12 +39,30 @@ START:                  ; first instruction of program
 
 
             MOVEA.L     STARTADDR, A6
+            
+            *----------PageSize=30-----------*
+            MOVE.B      #3, D1      * counter
+            MOVE.B      #30, D2     
 
 MAIN_LOOP   CMPA.L      ENDADDR, A6
             BGE         PRGM_END
-            JSR         DECODE
+            CMP.B       D1, D2
+            BLE         PAGE_BREAK
+MAIN_C      JSR         DECODE
+            ADDQ.B      #1, D1
             BRA         MAIN_LOOP
 
+PAGE_BREAK
+            LEA         BREAKMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            MOVE.B      #5, D0
+            TRAP        #15
+            MOVE.W      #$FF00, D1
+            MOVE.B      #11, D0
+            TRAP        #15
+            MOVE.B      #0, D1
+            BRA         MAIN_C
 PRGM_END
             SIMHALT                         ; halt simulator
 
@@ -105,6 +123,7 @@ POUND       EQU     $23
 MSSG        DC.B    'Please enter start and ending memory addresses.',CR,LF,0
 STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
+BREAKMSG    DC.B    'Press any key to continue... ',0
 
 SPACE       DC.B    ' ', 0
 NEWLINE     DC.B    CR,LF,0
@@ -247,6 +266,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
