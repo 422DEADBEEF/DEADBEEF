@@ -58,7 +58,7 @@ PRGM_END
             INCLUDE     "Branch6.X68"
             INCLUDE     "Branch7.X68"
             INCLUDE     "Branch8.X68"
-            INCLUDE     "EAOperands.X68"
+            INCLUDE     "PrepOperands.X68"
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
@@ -247,6 +247,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
