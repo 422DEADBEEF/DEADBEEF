@@ -6,12 +6,12 @@
 *-----------------------------------------------------------
 START           ORG         $7000
                 
-                ADDI.B      #3, D1
-                ADDI.W      #4, (A1)
-                ADDI.L      #5, (A2)+
-                ADDI.B      #6, -(A3)
-                ADDI.W      #7, $5
-                ADDI.L      #8, $FFFFFFFF
+                ADDI.B      #3123, D1
+                ADDI.W      #4123, (A1)
+                ADDI.L      #5123, (A2)+
+                ADDI.B      #6123, -(A3)
+                ADDI.W      #7123, $5
+                ADDI.L      #8123, $FFFFFFFF
                 
                 NOP
 
