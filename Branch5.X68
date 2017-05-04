@@ -79,7 +79,7 @@ DC_ADDQ_WA  MOVE.B      #4, param1
             CLR         D6
             MOVE.W      (A6)+, D6
             MOVE.L      D6, param2
-            MOVE.L      #O1STRING, param3
+            MOVE.L      #O2STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
             BRA         B5_PRINT
 
@@ -88,7 +88,7 @@ DC_ADDQ_LA  MOVE.B      #4, param1
             CLR         D6
             MOVE.L      (A6)+, D6
             MOVE.L      D6, param2
-            MOVE.L      #O1STRING, param3
+            MOVE.L      #O2STRING, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
             BRA         B5_PRINT
 
