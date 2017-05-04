@@ -25,11 +25,9 @@
                         *            0 = N/A
                         *            1 = word
                         *            2 = long
-                        * param5.B = operand order
-                        *            0 = O1
-                        *            1 = O1, O2
-                        *            2 = O1, ---
-                        *            3 = ---, O2
+                        * param5.B = num operands
+                        *            0 = 1
+                        *            anything else = 2
                         * Writes to:
                         *            O1STRING
                         *            O2STRING
@@ -154,6 +152,7 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
 
 
 
