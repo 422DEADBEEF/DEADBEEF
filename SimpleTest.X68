@@ -12,7 +12,7 @@ START           ORG         $7000
                 MOVE.B      D4, -(A1)
                 MOVE.W      D5, $4
                 MOVE.L      D6, $00FF1234
-                
+                                
                 NOP
                 
                 MOVE.B      (A1), D5
@@ -59,6 +59,7 @@ START           ORG         $7000
                 SIMHALT
                 
                 END         START
+
 
 
 

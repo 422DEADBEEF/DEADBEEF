@@ -17,15 +17,11 @@
                         *            2 = (xxx).l
                         *            3 = #<xxx>
                         *            4 = invalid
-                        * param3.B = operand1 size
+                        * param3.B = operand size
                         *            0 = N/A
                         *            1 = word
                         *            2 = long
-                        * param4.B = operand2 size
-                        *            0 = N/A
-                        *            1 = word
-                        *            2 = long
-                        * param5.B = num operands
+                        * param4.B = num operands
                         *            0 = 1
                         *            anything else = 2
                         * Writes to:
@@ -38,8 +34,8 @@ PREP_OPERANDS           MOVEM.L     D0-D7/A0-A5, -(SP)
                         MOVE.B      param1, D1  * op1 mode
                         MOVE.B      param2, D2  * op2 mode
                         MOVE.B      param3, D3  * op1 size
-                        MOVE.B      param4, D4  * op2 size
-                        MOVE.B      param5, D6  * operand order
+                        MOVE.B      param3, D4  * op2 size
+                        MOVE.B      param4, D6  * operand order
                         
                         CLR.L       D5          * parameter
                         
@@ -152,6 +148,7 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
 
 
 

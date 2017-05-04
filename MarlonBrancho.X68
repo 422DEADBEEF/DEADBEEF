@@ -66,45 +66,34 @@ B0_SUBI_L           MOVE.L      #ADDIL_OP, OPSTRING
                     MOVEQ       #2, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 
-B0_COPYLOOP                    
-                    CMP.B       #11, D3
-                    BGE         B0_END_COPYLOOP
-                    MOVE.B      (A0)+, (A1)+
-                    ADDQ.B      #1, D3
-                    BRA         B0_COPYLOOP
-B0_END_COPYLOOP     RTS
-
 
 B0_DETERMINE_OPERANDS
-                    MOVE.W      D0, param1
-                    MOVE.W      #4, param2
-                    MOVE.W      #7, param3
-                    JSR         PREP_OPERANDS
-                    
-                    LEA         TMPSTRING, A0
+                    MOVE.W      #4, param1      * register code for immediate addressing
+                    MOVE.W      #7, param2      * mode code for immediate addressing
                     LEA         O1STRING, A1
-                    
-                    MOVE.L      #3, D3
-                    JSR         B0_COPYLOOP
+                    MOVE.L      A1, param3
+                    JSR         DECODE_ADDRESS_MODE_AM
+                    MOVE.B      ret, D3         * op1 mode
                     
                     
                     MOVE.W      D0, D1
-                    AND.W       MASK_DSTREG, D1
-                    MOVE.W      D0, D2
-                    AND.W       MASK_DSTMODE, D2
+                    AND.W       MASK_DSTREG, D1     * register
+                    MOVE.W      D0, D2              
+                    AND.W       MASK_DSTMODE, D2    * mode
                     LSR.L       #3, D2
                     
-                    MOVE.W      D0, param1
-                    MOVE.W      D1, param2
-                    MOVE.W      D2, param3
-                    JSR         PREP_OPERANDS
-                    
-                    LEA         TMPSTRING, A0
+                    MOVE.W      D1, param1          * register code
+                    MOVE.W      D2, param2          * mode code
                     LEA         O2STRING, A1
+                    MOVE.L      A1, param3
+                    JSR         DECODE_ADDRESS_MODE_AM
                     
-                    MOVE.L      #3, D3
-                    JSR         B0_COPYLOOP
+                    MOVE.B      D3, param1
+                    MOVE.B      ret, param2
+                    MOVE.B      D6, param3
+                    MOVE.B      #1, param4
                     
+                    JSR         PREP_OPERANDS
 
                     JSR         PRINTOP
                     BRA         END_BRANCH0
@@ -124,6 +113,7 @@ END_BRANCH0         MOVEM.L     (SP)+, D0-D7/A0-A5
 B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
+
 
 
 

@@ -91,7 +91,6 @@ B1_DETERMINE_OPERANDS
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
                         MOVE.B      ret, D3                  * ret, param1
-                        MOVE.B      D6, D4                  * D6, param3
                         
                               
                         MOVE.W      D0, D1
@@ -109,11 +108,10 @@ B1_DETERMINE_OPERANDS
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
                         
-                        MOVE.B      ret, param2
-                        MOVE.B      D6, param4
                         MOVE.B      D3, param1
-                        MOVE.B      D4, param3
-                        MOVE.B      #1, param5
+                        MOVE.B      ret, param2
+                        MOVE.B      D6, param3
+                        MOVE.B      #1, param4
                         
                         
                         JSR         PREP_OPERANDS
@@ -142,6 +140,7 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
 
 
 
