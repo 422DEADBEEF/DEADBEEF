@@ -14,17 +14,17 @@ BRANCH0
                     
                     AND.W       #B0_ERROR_CHECK, D1
                     CMP.W       #%0000010000000000, D1
-                    BEQ         B0_DATA
+                    BNE         B0_DATA
                     
                     MOVE.W      D0, D1
                     AND.W       #B0_SUBI_MASK, D1
                     CMP.W       #B0_SUBI_MASK, D1
-                    BEQ         ADDI_OPCODE
+                    BNE         SUBI_OPCODE
                     
 ADDI_OPCODE
                     MOVE.W      D0, D1
                     AND.W       #B0_SIZE_MASK, D1
-                    LSL.L       #6, D1
+                    LSR.L       #6, D1
                     CMP.W       #0, D1
                     BEQ         B0_ADDI_B
                     CMP.W       #1, D1
@@ -36,7 +36,7 @@ ADDI_OPCODE
 SUBI_OPCODE
                     MOVE.W      D0, D1
                     AND.W       #B0_SIZE_MASK, D1
-                    LSL.L       #6, D1
+                    LSR.L       #6, D1
                     CMP.W       #0, D1
                     BEQ         B0_SUBI_B
                     CMP.W       #1, D1
@@ -56,20 +56,20 @@ B0_ADDI_L           MOVE.L      #ADDIL_OP, OPSTRING
                     BRA         B0_DETERMINE_OPERANDS
 
 
-B0_SUBI_B           MOVE.L      #ADDIB_OP, OPSTRING
+B0_SUBI_B           MOVE.L      #SUBIB_OP, OPSTRING
                     MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
-B0_SUBI_W           MOVE.L      #ADDIW_OP, OPSTRING
+B0_SUBI_W           MOVE.L      #SUBIW_OP, OPSTRING
                     MOVEQ       #1, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
-B0_SUBI_L           MOVE.L      #ADDIL_OP, OPSTRING
+B0_SUBI_L           MOVE.L      #SUBIL_OP, OPSTRING
                     MOVEQ       #2, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 
 
 B0_DETERMINE_OPERANDS
-                    MOVE.W      #4, param1      * register code for immediate addressing
-                    MOVE.W      #7, param2      * mode code for immediate addressing
+                    MOVE.B      #4, param1      * register code for immediate addressing
+                    MOVE.B      #7, param2      * mode code for immediate addressing
                     LEA         O1STRING, A1
                     MOVE.L      A1, param3
                     JSR         DECODE_ADDRESS_MODE_AM
@@ -82,8 +82,8 @@ B0_DETERMINE_OPERANDS
                     AND.W       MASK_DSTMODE, D2    * mode
                     LSR.L       #3, D2
                     
-                    MOVE.W      D1, param1          * register code
-                    MOVE.W      D2, param2          * mode code
+                    MOVE.B      D1, param1          * register code
+                    MOVE.B      D2, param2          * mode code
                     LEA         O2STRING, A1
                     MOVE.L      A1, param3
                     JSR         DECODE_ADDRESS_MODE_AM
@@ -113,6 +113,8 @@ END_BRANCH0         MOVEM.L     (SP)+, D0-D7/A0-A5
 B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
+
+
 
 
 

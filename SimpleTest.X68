@@ -6,12 +6,21 @@
 *-----------------------------------------------------------
 START           ORG         $7000
                 
-                ADDI.B      #3123, D1
-                ADDI.W      #4123, (A1)
-                ADDI.L      #5123, (A2)+
-                ADDI.B      #6123, -(A3)
-                ADDI.W      #7123, $5
-                ADDI.L      #8123, $FFFFFFFF
+                SUBI.B      #$31, D1
+                SUBI.W      #$412, (A1)
+                SUBI.L      #$512, (A2)+
+                SUBI.B      #$30, -(A3)
+                SUBI.W      #$712, $5
+                SUBI.L      #$812, $FFFFFFFF
+                
+                NOP
+                
+                ADDI.B      #$31, D1
+                ADDI.W      #$412, (A1)
+                ADDI.L      #$512, (A2)+
+                ADDI.B      #$30, -(A3)
+                ADDI.W      #$712, $5
+                ADDI.L      #$812, $FFFFFFFF
                 
                 NOP
 
@@ -68,6 +77,7 @@ START           ORG         $7000
                 SIMHALT
                 
                 END         START
+
 
 
 
