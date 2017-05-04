@@ -5,6 +5,15 @@
 * Description :
 *-----------------------------------------------------------
 START           ORG         $7000
+                
+                ADDI.B      #3, D1
+                ADDI.W      #4, (A1)
+                ADDI.L      #5, (A2)+
+                ADDI.B      #6, -(A3)
+                ADDI.W      #7, $5
+                ADDI.L      #8, $FFFFFFFF
+                
+                NOP
 
                 MOVE.B      D1, D2
                 MOVE.W      D2, (A1)
@@ -59,6 +68,7 @@ START           ORG         $7000
                 SIMHALT
                 
                 END         START
+
 
 
 
