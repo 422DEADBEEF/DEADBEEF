@@ -19,8 +19,13 @@ start		EQU	$00007000	* ORG and END address
 		LEA     data1,A0
 		LEA     $0001, A0
 		ADDQ.B	#4, D1
-	    ADDQ.W	#2, D3
-	    ADDQ.L	#5, D6
+	        ADDQ.W	#2, D3
+	        ADDQ.L	#5, D6
+	        ADDQ.B  #7, $0001
+	        ADDQ.W  #3, A2
+	        ADDQ.L  #6, (A3)
+	        ADDQ.L  #6, -(A3)
+	        ADDQ.L  #6, (A3)+
 		NOP                     *Required
 		RTS                     *Required
 		STOP	#$2000          * Not required instruction
@@ -89,6 +94,7 @@ multiply	MULS	D0,D3
 		
 
 		END	start
+
 
 
 

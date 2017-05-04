@@ -30,7 +30,7 @@ DC_ADDQ     MOVE.W      D0, D1
             MOVE.W      D0, D1
             CLR         D3
             AND.W       #B5_SIZE_MASK, D1
-            ROL.W       #7, D1
+            ROR.W       #6, D1
             MOVE.B      D1, D3              ; D3 is size
 
             MOVE.W      D0, D1
@@ -61,7 +61,7 @@ DC_ADDQ     MOVE.W      D0, D1
             JSR         DECODE_ADDRESS_MODE_AM
 
             MOVE.B      ret, D1
-            BRA         B5_PRINT
+            ASL.W       #2, D1
             LEA         B5_JMPTBL, A0
             JMP         0(A0, D1)
 
@@ -70,12 +70,27 @@ B5_JMPTBL   BRA DC_ADDQ_AM
             BRA DC_ADDQ_WA
             BRA DC_ADDQ_LA
             BRA B5_DATA
+            BRA B5_DATA
 
 DC_ADDQ_AM  BRA B5_PRINT
-DC_ADDQ_WA  BRA B5_PRINT
-DC_ADDQ_LA  BRA B5_PRINT
 
 
+DC_ADDQ_WA  MOVE.B      #4, param1
+            CLR         D6
+            MOVE.W      (A6)+, D6
+            MOVE.L      D6, param2
+            MOVE.L      #O1STRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+            BRA         B5_PRINT
+
+
+DC_ADDQ_LA  MOVE.B      #4, param1
+            CLR         D6
+            MOVE.L      (A6)+, D6
+            MOVE.L      D6, param2
+            MOVE.L      #O1STRING, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+            BRA         B5_PRINT
 
 
 DC_ADDQ_SZ  CMP.B       #0, D3
