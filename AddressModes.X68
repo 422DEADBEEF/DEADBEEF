@@ -24,6 +24,7 @@ AM_Num              EQU     $38
 
 DECODE_ADDRESS_MODE_AM
         MOVEM.L     A0-A1/D0-D1, -(SP)
+        CLR.L       D1
         MOVE.B      param1, D0
         LSL.B       #3, D0
         MOVE.B      param2, D1
@@ -154,6 +155,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
