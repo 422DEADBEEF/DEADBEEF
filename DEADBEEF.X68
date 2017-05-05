@@ -7,37 +7,9 @@
             ORG         $1000
 START:                  ; first instruction of program
 
+            JMP         PRGM_START
 
-            LEA         MSSG, A1            ; load the first message into A1
-            MOVE.B      #14,D0              ;
-            TRAP        #15                 ; display it
-
-            LEA         STARTMSSG, A1       ; load the start message into A1
-            MOVE.B      #14,D0              ;
-            TRAP        #15                 ; display it
-
-            LEA         HEXINPUT, A1
-            MOVE.B      #2, D0              ; set up to read a string from user
-            TRAP        #15                 ; Execute Task
-
-            MOVE.L      #STARTADDR, param1
-            MOVE.B      D1, param2
-            JSR         CNVFRMASCII
-
-
-            LEA         ENDMSSG, A1         ; load the end message into A1
-            MOVE.B      #14,D0              ;
-            TRAP        #15                 ; display it
-
-            LEA         HEXINPUT, A1
-            MOVE.B      #2, D0              ; set up to read a string from user
-            TRAP        #15                 ; Execute Task
-
-            MOVE.L      #ENDADDR, param1
-            MOVE.B      D1, param2
-            JSR         CNVFRMASCII
-
-
+MAIN_CONTINUE
             MOVEA.L     STARTADDR, A6
             
             *----------PageSize=30-----------*
@@ -65,6 +37,99 @@ PAGE_BREAK
             BRA         MAIN_C
 PRGM_END
             SIMHALT                         ; halt simulator
+            
+            
+            
+PRGM_START  
+            LEA         MSSG, A1            ; load the first message into A1
+            MOVE.B      #14,D0              ;
+            TRAP        #15                 ; display it
+                        
+ADDRESS_LOOP
+            LEA         STARTMSSG, A1       ; load the start message into A1
+            MOVE.B      #14,D0              ;
+            TRAP        #15                 ; display it
+
+            LEA         HEXINPUT, A1
+            MOVE.B      #2, D0              ; set up to read a string from user
+            TRAP        #15                 ; Execute Task
+
+            MOVE.L      #STARTADDR, param1
+            MOVE.B      D1, param2
+            JSR         CNVFRMASCII
+
+
+            LEA         ENDMSSG, A1         ; load the end message into A1
+            MOVE.B      #14,D0              ;
+            TRAP        #15                 ; display it
+
+            LEA         HEXINPUT, A1
+            MOVE.B      #2, D0              ; set up to read a string from user
+            TRAP        #15                 ; Execute Task
+
+            MOVE.L      #ENDADDR, param1
+            MOVE.B      D1, param2
+            JSR         CNVFRMASCII
+            
+END_ADDRESS_LOOP
+
+            MOVE.L      STARTADDR, D3
+            MOVE.L      ENDADDR, D4
+            CMP.L       D3, D4
+            BLE         RANGE_ERROR
+            CMP.L       #$00FFFFFE, D3
+            BGT         START_RANGE_ERROR
+            CMP.L       #$00FFFFFE, D4
+            BGT         END_RANGE_ERROR
+            AND.L       #$0000FFFF, D3
+            DIVU.W      #2, D3
+            SWAP        D3
+            CMP.W       #0, D3
+            BNE         START_WORD_ALIGN_ERROR
+            AND.L       #$0000FFFF, D4
+            DIVU.W      #2, D4
+            SWAP        D4
+            CMP.W       #0, D4
+            BNE         END_WORD_ALIGN_ERROR
+            BRA         MAIN_CONTINUE
+
+RANGE_ERROR 
+            LEA         RANGE_ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            BRA         PRINT_RESTART_MESSAGE
+START_RANGE_ERROR
+            LEA         START_RANGE_ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            BRA         PRINT_RESTART_MESSAGE
+END_RANGE_ERROR
+            LEA         END_RANGE_ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            BRA         PRINT_RESTART_MESSAGE
+START_WORD_ALIGN_ERROR
+            LEA         START_WORD_ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            BRA         PRINT_RESTART_MESSAGE
+END_WORD_ALIGN_ERROR
+            LEA         END_WORD_ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            BRA         PRINT_RESTART_MESSAGE
+
+PRINT_RESTART_MESSAGE
+            LEA         ERRMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            MOVE.B      #5, D0
+            TRAP        #15
+            MOVE.W      #$FF00, D1
+            MOVE.B      #11, D0
+            TRAP        #15
+            BRA         START
+
 
 *------------Subroutines---------------
 
@@ -81,7 +146,6 @@ PRGM_END
             INCLUDE     "PrintOpcode.X68"
             INCLUDE     "ConvertFromAscii.X68"
             INCLUDE     "AddressModes.X68"
-            
 
 
 *-------------Variables-----------------
@@ -124,6 +188,13 @@ MSSG        DC.B    'Please enter start and ending memory addresses.',CR,LF,0
 STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
 BREAKMSG    DC.B    'Press any key to continue... ',0
+ERRMSG      DC.B    'Press any key to restart...',0
+
+RANGE_ERRMSG        DC.B    'End address must be greater than start address.',CR,LF,0
+START_RANGE_ERRMSG  DC.B    'Start address must fit in addressing space.',CR,LF,0
+END_RANGE_ERRMSG    DC.B    'End address must fit in addressing space.',CR,LF,0
+START_WORD_ERRMSG   DC.B    'Start address must be word-aligned.',CR,LF,0
+END_WORD_ERRMSG     DC.B    'End address must be word-aligned.',CR,LF,0
 
 SPACE       DC.B    ' ', 0
 NEWLINE     DC.B    CR,LF,0
@@ -266,6 +337,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
