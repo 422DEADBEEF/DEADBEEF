@@ -62,6 +62,12 @@ data5		DC.B	'Here is some interspersed data'
 * Divide and multiple optional instructions
 	
 ands		AND.B	#$01,$4568
+                OR.B    D1, D0
+                OR.W    $4000, D5
+                OR.L    $5000, D7
+                OR.B    D0, $2300
+                OR.W    D5, $7211
+                OR.L    D6, $A320
 
 shifts		ASL.B	D0,D0
 
@@ -91,9 +97,10 @@ multiply	MULS	D0,D3
 		DIVU    $4000, D1
 		DIVU    $12345678, D2
 		DIVU    #$97, D7
-		
+DU1             DC.W    $8ECE
 
 		END	start
+
 
 
 
