@@ -1,8 +1,8 @@
 *-----------------------------------------------------------
-* Title      : Branch 4 Decode Subroutines
+* Title      : Branch 9 Decode Subroutines
 * Written by : Jeremy DeHaan, Cameron Dillion
 * Date       : 05/01/2017
-* Description: NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
+* Description: SUB (possibly ERROR)
 *-----------------------------------------------------------
 
 BRANCH9     MOVEM.L     D0-D7/A0-A5, -(SP)
