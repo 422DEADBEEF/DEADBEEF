@@ -1,6 +1,6 @@
 *-----------------------------------------------------------
-* Title      : DEADBEEF Dissasembler
-* Written by : AddressModes
+* Title      : AddressModes
+* Written by : Cameron Dillon
 * Date       : 04/27/2017
 * Description: Subroutines for decoding an addressing mode
 *              and building address mode strings
