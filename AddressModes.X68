@@ -82,9 +82,8 @@ NOT_4_DC
         MOVE.B  D0, ret
         BRA     NO_BUILD_DC
         
-INVALID_DC       *** CATCH CRASH? ***
-        MOVE.B  #4, ret
-        MOVE.L  $1001, D0   ; CRASH PROGRAM, KEEP?        
+INVALID_DC
+        MOVE.B  #4, ret       
         BRA     NO_BUILD_DC
 
 END_AM_DC
@@ -155,6 +154,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
