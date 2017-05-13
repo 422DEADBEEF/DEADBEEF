@@ -19,7 +19,7 @@ BRANCH8             MOVEM.L     D0-D7/A0-A5, -(SP)
                     MOVE.W      D0, D2
                     AND.W       #DSTREG_MASK, D2
                     ROL.W       #7, D2
-                    AND.W       #B8_DIVU_MASK, D1
+                    AND.W       #B8_OPMODE_MASK, D1
                     CMP.W       #B8_DIVU_MASK, D1
                     BEQ         B8_DIVU_DC
                     BNE         B8_OR_DC
@@ -40,8 +40,12 @@ B8_OR_ENTRY         MOVE.B      #2, NUMOPERANDS                     ; Because I 
                     AND.W       #SRCREG_MASK, D2
                     
                     CMP.B       #1, D1
+                    BGT         B8_NOCHECKDEST
                     BEQ         B8_DATA
-                    MOVE.B      D2, param1
+                    CMP.B       #1, D6
+                    BEQ         B8_DATA
+
+B8_NOCHECKDEST      MOVE.B      D2, param1
                     MOVE.B      D1, param2
                     MOVE.L      A1, param3
                     JSR         DECODE_ADDRESS_MODE_AM
@@ -138,6 +142,7 @@ BRANCH8EXIT         MOVEM.L     (SP)+, D0-D7/A0-A5
 
 
 B8_DIVU_MASK        EQU     $80C0
+B8_OPMODE_MASK      EQU     $F1C0
 B8_OR_OPMODE_MASK   EQU     $01C0
 
 
