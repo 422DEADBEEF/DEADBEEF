@@ -142,6 +142,7 @@ PRINT_RESTART_MESSAGE
             INCLUDE     "Branch7.X68"
             INCLUDE     "Branch8.X68"
             INCLUDE     "Branch9.X68"
+            INCLUDE     "Branch12.X68"
             INCLUDE     "PrepOperands.X68"
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
