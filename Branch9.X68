@@ -1,7 +1,7 @@
 *-----------------------------------------------------------
 * Title      : Branch 9 Decode Subroutines
-* Written by : Jeremy DeHaan, Cameron Dillion
-* Date       : 05/01/2017
+* Written by : Jeremy DeHaan
+* Date       : 05/16/2017
 * Description: SUB (possibly ERROR)
 *-----------------------------------------------------------
 

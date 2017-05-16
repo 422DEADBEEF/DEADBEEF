@@ -48,6 +48,14 @@ LEA_ERROR3          DC.W        $41D8       * LEA       (A0)+, A0   **** **** **
 LEA_ERROR4          DC.W        $41E0       * LEA       -(A0), A0   **** **** **10 0***
 LEA_ERROR5          DC.W        $41FC       * LEA       #xxx, A0    **** **** **11 1100
 
+ADDQ_ERROR          DC.W        $5E3C       * ADDQ.B    #7, #xxx    **** **** **11 1100
+
+DIVU_ERROR          DC.W        $80C8       * DIVU.W    A0, D0      **** **** **00 1***
+
+OR_ERROR1           DC.W        $8100       * OR.B      D0, D0      **** ***1 **00 0***
+OR_ERROR2           DC.W        $8108       * OR.B      D0, A0      **** ***1 **00 1***
+OR_ERROR3           DC.W        $813C       * OR.B      D0, #xxx    **** ***1 **11 1100
+OR_ERROR4           DC.W        $8008       * OR.B      A0, D0      **** ***0 **00 1***
 
                     SIMHALT
 
@@ -67,6 +75,7 @@ LEA_ERROR5          DC.W        $41FC       * LEA       #xxx, A0    **** **** **
                     
                     
                     
+
 
 
 *~Font name~Courier New~

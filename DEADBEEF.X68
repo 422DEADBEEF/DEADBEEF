@@ -6,7 +6,11 @@
 *-----------------------------------------------------------
             ORG         $1000
 START:                  ; first instruction of program
-
+            
+            MOVE.W      #$FF00, D1
+            MOVE.B      #11, D0
+            TRAP        #15
+            
             JMP         PRGM_START
 
 MAIN_CONTINUE
@@ -36,6 +40,17 @@ PAGE_BREAK
             MOVE.B      #0, D1
             BRA         MAIN_C
 PRGM_END
+
+            LEA         RESTMSG, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            
+            MOVE.B      #5, D0
+            TRAP        #15
+            
+            CMP.B       #$79, D1
+            BEQ         START
+            
             SIMHALT                         ; halt simulator
             
             
@@ -191,6 +206,7 @@ STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
 BREAKMSG    DC.B    'Press any key to continue... ',0
 ERRMSG      DC.B    'Press any key to restart...',0
+RESTMSG     DC.B    'If you would like to disassemble another program, press y.',CR,LF,'If you would like to exit, press any other key...',CR,LF,0
 
 RANGE_ERRMSG        DC.B    'End address must be greater than start address.',CR,LF,0
 START_RANGE_ERRMSG  DC.B    'Start address must fit in addressing space.',CR,LF,0
@@ -339,6 +355,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
