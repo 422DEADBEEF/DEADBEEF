@@ -6,7 +6,7 @@
 *-----------------------------------------------------------
             ORG         $1000
 START:                  ; first instruction of program
-
+            
             MOVE.W      #$FF00, D1
             MOVE.B      #11, D0
             TRAP        #15
