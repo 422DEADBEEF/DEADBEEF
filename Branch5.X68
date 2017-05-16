@@ -1,7 +1,7 @@
 *-----------------------------------------------------------
-* Title      : Branch 4 Decode Subroutines
+* Title      : Branch 5 Decode Subroutines
 * Written by : Jeremy DeHaan, Cameron Dillion
-* Date       : 05/01/2017
+* Date       : 05/16/2017
 * Description: NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
 *-----------------------------------------------------------
 
