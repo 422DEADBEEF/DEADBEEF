@@ -9,21 +9,34 @@
 * in the program prompt.
 
     MOVEM.L             A0-A5/D0-D7, -(SP)        
+    move.l              #$DEADBEEF, d3
     MOVEA.L             #$10000, A0
     MOVE.W              #0, D0
+*    MOVE.W              #512, D1
+*    MOVE.W              #%1100101000000000, D2  *Set min value to branch8 with register set to 5
+
+*    MOVE.W              #256, D1       ;; values for brancho
+*    MOVE.W              #$0400, D2
+
     MOVE.W              #512, D1
-    MOVE.W              #%1000101000000000, D2  *Set min value to branch8 with register set to 5
+    MOVE.W              #$D800, D2
     
 LOOP                    * Generate permutations of bits 0-8 (512 distinct values)
     CMP.W               D1, D0
     BEQ                 LOOP_END
     
     MOVE.W              D2, (A0)+       *put them in memory beginning at $10000
+    MOVE.W              D2, (A0)+       *put in second value for operands
+    MOVE.L              D3, (A0)+
+    MOVE.L              D3, (A0)+
     ADDQ.L              #1, D2
     ADDQ.W              #1, D0
     BRA                 LOOP
 LOOP_END         
             MOVEM.L     (SP)+, A0-A5/D0-D7
+
+
+
 
 
 
