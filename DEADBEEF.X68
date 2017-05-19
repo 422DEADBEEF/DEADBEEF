@@ -6,6 +6,7 @@
 *-----------------------------------------------------------
             ORG         $1000
 START:                  ; first instruction of program
+            INCLUDE     "ComprehensiveTest.X68"
             
             MOVE.W      #$FF00, D1
             MOVE.B      #11, D0
@@ -158,6 +159,7 @@ PRINT_RESTART_MESSAGE
             INCLUDE     "Branch8.X68"
             INCLUDE     "Branch9.X68"
             INCLUDE     "Branch12.X68"
+            INCLUDE     "Branch13.X68"
             INCLUDE     "PrepOperands.X68"
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
@@ -355,6 +357,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
