@@ -9,16 +9,16 @@
 START               ORG        $7000
 
                     * Invalid for both MOVE and MOVEA
-MOVE_ERROR          DC.W        $19A1       * MOVE.B    D0, #xxx    **** 1001 11** ****
+MOVE_ERROR          DC.W        $19C0       * MOVE.B    D0, #xxx    **** 1001 11** ****
 
 
-ADDI_ERROR1         DC.W        $04A0       * ADDI.??   #xxx, D0    **** **** 11** ****
-ADDI_ERROR2         DC.W        $043C       * ADDI.B    #xxx, #xxx  **** **** **00 1***
+ADDI_ERROR1         DC.W        $06C0       * ADDI.??   #xxx, D0    **** **** 11** ****
+ADDI_ERROR2         DC.W        $063C       * ADDI.B    #xxx, #xxx  **** **** **00 1***
 ADDI_ERROR3         DC.W        $0448       * ADDI.W    #xxx, A0    **** **** **11 1100
 
 
-SUBI_ERROR1         DC.W        $06A0       * SUBI.??   #xxx, D0    **** **** 11** ****
-SUBI_ERROR2         DC.W        $063C       * SUBI.B    #xxx, #xxx  **** **** **00 1***
+SUBI_ERROR1         DC.W        $04C0       * SUBI.??   #xxx, D0    **** **** 11** ****
+SUBI_ERROR2         DC.W        $043C       * SUBI.B    #xxx, #xxx  **** **** **00 1***
 SUBI_ERROR3         DC.W        $0648       * SUBI.W    #xxx, A0    **** **** **11 1100
 
 
@@ -75,6 +75,7 @@ OR_ERROR4           DC.W        $8008       * OR.B      A0, D0      **** ***0 **
                     
                     
                     
+
 
 
 

@@ -113,6 +113,9 @@ B1_DETERMINE_OPERANDS
                         MOVE.B      D6, param3
                         MOVE.B      #1, param4
                         
+                        CMP.B       #3, param2
+                        BEQ         B1_DATA
+                        
                         
                         JSR         PREP_OPERANDS
                         
@@ -140,6 +143,8 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
+
 
 
 

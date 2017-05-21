@@ -31,7 +31,7 @@ ADDI_OPCODE
                     BEQ         B0_ADDI_W
                     CMP.W       #2, D1
                     BEQ         B0_ADDI_L
-                    BEQ         B0_DATA
+                    BRA         B0_DATA
 
 SUBI_OPCODE
                     MOVE.W      D0, D1
@@ -43,7 +43,7 @@ SUBI_OPCODE
                     BEQ         B0_SUBI_W
                     CMP.W       #2, D1
                     BEQ         B0_SUBI_L
-                    BEQ         B0_DATA
+                    BRA         B0_DATA
                     
 B0_ADDI_B           MOVE.L      #ADDIB_OP, OPSTRING
                     MOVEQ       #1, D6                  * Number of words to read
@@ -75,7 +75,6 @@ B0_DETERMINE_OPERANDS
                     JSR         DECODE_ADDRESS_MODE_AM
                     MOVE.B      ret, D3         * op1 mode
                     
-                    
                     MOVE.W      D0, D1
                     AND.W       MASK_DSTREG, D1     * register
                     MOVE.W      D0, D2              
@@ -92,6 +91,15 @@ B0_DETERMINE_OPERANDS
                     MOVE.B      ret, param2
                     MOVE.B      D6, param3
                     MOVE.B      #1, param4
+                    
+                    CMP.B       #3, param2
+                    BEQ         B0_DATA
+                    
+                    MOVE.L      D0, D1
+                    AND.L       #B0_AR_MASK, D1
+                    CMP.L       #%0000000000001000, D1
+                    BEQ         B0_DATA
+                    
                     
                     JSR         PREP_OPERANDS
 
@@ -113,6 +121,7 @@ END_BRANCH0         MOVEM.L     (SP)+, D0-D7/A0-A5
 B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
+B0_AR_MASK          EQU     %0000000000111000
 
 
 
