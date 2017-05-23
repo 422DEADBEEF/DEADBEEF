@@ -2,13 +2,14 @@
 * Title      : Branch 9 Decode Subroutines
 * Written by : Jeremy DeHaan
 * Date       : 05/16/2017
-* Description: SUB (possibly ERROR)
+* Description: SUB (possibly DATA)
 *-----------------------------------------------------------
 
 BRANCH9     MOVEM.L     D0-D7/A0-A5, -(SP)
             MOVE.W      (A6)+, D0
 
-DC_SUB      CLR         D1
+DC_SUB      MOVE.B      #2, NUMOPERANDS         ; do this here now, if it is data, it will be reset
+            CLR         D1
             MOVE.W      D0, D1
             AND.W       #B9_REG_NUM_MASK, D1
             ROL.W       #7, D1                  ; Register Number
