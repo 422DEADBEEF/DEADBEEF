@@ -160,6 +160,7 @@ PRINT_RESTART_MESSAGE
             INCLUDE     "Branch9.X68"
             INCLUDE     "Branch12.X68"
             INCLUDE     "Branch13.X68"
+            INCLUDE     "Branch14.X68"
             INCLUDE     "PrepOperands.X68"
             INCLUDE     "StringConverter.X68"
             INCLUDE     "PrintOpcode.X68"
@@ -226,7 +227,7 @@ NOP_OP      DC.B    'NOP',0
 MOVEB_OP    DC.B    'MOVE.B  ',0
 MOVEW_OP    DC.B    'MOVE.W  ',0
 MOVEL_OP    DC.B    'MOVE.L  ',0
-            
+
 MOVEAW_OP   DC.B    'MOVEA.W ',0
 MOVEAL_OP   DC.B    'MOVEA.L ',0
 
@@ -295,7 +296,7 @@ ROLL_OP     DC.B    'ROL.L   ',0
 RORB_OP     DC.B    'ROR.B   ',0
 RORW_OP     DC.B    'ROR.W   ',0
 RORL_OP     DC.B    'ROR.L   ',0
-                
+
 BCC_OP      DC.B    'BCC     ',0
 BLT_OP      DC.B    'BLT     ',0
 BGE_OP      DC.B    'BGE     ',0
@@ -328,10 +329,10 @@ SP_STRING   DC.W    'SP',0
 
 
 *** MASKS AND VALUES ***
-                
+
 MASK_NOP        DC.W    $4E71
 MASK_RTS        DC.W    $4E75
-                
+
 MASK_HONIBBLE   DC.W    $F000
 MASK_OPSIZE     DC.W    $3000
 MASK_SRCREG     DC.W    $0E00 *misleading name --- deprecated
