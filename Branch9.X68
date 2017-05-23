@@ -71,7 +71,7 @@ B9_PRINT_PREP
             MOVE.L      A2, param3
             JSR         DECODE_ADDRESS_MODE_AM
 
-            CLR.L         D0
+            CLR.L       D0
             MOVE.B      ret, D0
             ASL.W       #2, D0
             LEA         B9_JMPTBL, A0
