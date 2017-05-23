@@ -300,8 +300,58 @@ B14_ASR_EA  MOVE.L      #ASRW_OP, OPSTRING
 B14_ASL_EA  MOVE.L      #ASLW_OP, OPSTRING
             BRA         B14_EA_DC
 
-; This just uses what ever string was in O1String last
-B14_EA_DC   BRA         B14_PRINT
+; Decode what the effective address is
+B14_EA_DC   LEA         O1STRING, A1
+            CLR         D3
+            MOVE.W      D0, D3
+            AND.W       #B14_EA_MODE_MASK, D3
+            LSR.W       #3, D3                  ; Effective Address Mode
+
+            CMP.B       #%000, D3               ; check if data register
+            BEQ         B14_DATA
+            CMP.B       #%001, D3               ; check if address register
+            BEQ         B14_DATA
+
+            CLR         D4
+            MOVE.W      D0, D4
+            AND.W       #B14_EA_REG_MASK, D4     ; Effective Address Register
+
+            ; Decode Effective Address
+            MOVE.B      D4, param1
+            MOVE.B      D3, param2
+            MOVE.L      A1, param3
+            JSR         DECODE_ADDRESS_MODE_AM
+
+            ; prep jumptable
+            CLR.L       D0
+            MOVE.B      ret, D0
+            ASL.W       #2, D0
+            LEA         B14_JMPTBL, A0
+            JMP         0(A0, D0)
+
+B14_JMPTBL  BRA B14_PRINT
+            BRA B14_W_ADDRESS
+            BRA B14_L_ADDRESS
+            BRA B14_DATA
+            BRA B14_DATA
+
+B14_W_ADDRESS
+            MOVE.B      #4, param1
+            CLR         D6
+            MOVE.W      (A6)+, D6
+            MOVE.L      D6, param2
+            MOVE.L      A1, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+            BRA         B14_PRINT
+
+B14_L_ADDRESS
+            MOVE.B      #8, param1
+            CLR         D6
+            MOVE.L      (A6)+, D6
+            MOVE.L      D6, param2
+            MOVE.L      A1, param3
+            JSR         HEX_TO_STRING_SC    ; build opcode address as a string
+            BRA         B14_PRINT
 
 
 B14_DATA_OR_EA_MASK     EQU     %0000000011000000
@@ -315,6 +365,9 @@ B14_SHIFT_ROT_EA_MASK   EQU     %0000011100000000
 B14_AS_EA_MASK          EQU     %0000000000000000
 B14_LS_EA_MASK          EQU     %0000000100000000
 B14_RO_EA_MASK          EQU     %0000001100000000
+
+B14_EA_MODE_MASK        EQU     %0000000000111000
+B14_EA_REG_MASK         EQU     %0000000000000111
 
 B14_DIR_MASK            EQU     %0000000100000000
 B14_LEFT_DIR            EQU     %0000000100000000
