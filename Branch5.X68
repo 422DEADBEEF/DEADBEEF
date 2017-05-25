@@ -1,8 +1,8 @@
 *-----------------------------------------------------------
 * Title      : Branch 5 Decode Subroutines
-* Written by : Jeremy DeHaan, Cameron Dillion
+* Written by : Jeremy DeHaan, Cameron Dillon
 * Date       : 05/16/2017
-* Description: NOP, RTS, JSR, MOVEM, and LEA (possibly ERROR)
+* Description: ADDQ
 *-----------------------------------------------------------
 
 BRANCH5     MOVEM.L     D0-D7/A0-A5, -(SP)
@@ -118,6 +118,7 @@ B5_SIZE_MASK            EQU     %0000000011000000
 
 B5_DEST_MODE_MASK       EQU     %0000000000111000
 B5_DEST_REG_MASK        EQU     %0000000000000111
+
 
 
 
