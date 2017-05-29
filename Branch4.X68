@@ -14,7 +14,7 @@ BRANCH4     MOVEM.L     D0-D7/A0-A5, -(SP)
             BEQ         DC_RTS
 
             MOVE.W      D0,D1
-            AND.W       #B4_JSR_MASK, D1
+            AND.W       #B4_JSR_TEST_MASK, D1
             CMP.W       #B4_JSR_MASK, D1
             BEQ         DC_JSR
 
@@ -328,6 +328,7 @@ BRANCH4EXIT MOVEM.L     (SP)+, D0-D7/A0-A5
             RTS
 
 
+B4_JSR_TEST_MASK        EQU     %0100111111000000
 B4_JSR_MASK             EQU     %0100111010000000
 B4_MOVEM_TEST_MASK      EQU     %0100101110000000
 B4_MOVEM_MASK           EQU     %0100100010000000

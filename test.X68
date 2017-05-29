@@ -16,6 +16,7 @@ start		EQU	$00007000	* ORG and END address
 * NOP and similar instructions. Should clearly differentiate NOP and RTS from others.
 		LEA     (A5), A2
 		LEA     (A0), A6
+		LEA     data1, A7
                 ROL.B   #2, D1
 		ROR.W   D2, D3
 		ASL.B   #5, D0
@@ -25,7 +26,7 @@ start		EQU	$00007000	* ORG and END address
 		LSL.W   (A1)
         JSR     add_start
 		JSR     $0001
-		LEA     data1,A0
+		LEA     data1, A7
 		LEA     $0001, A0
 		SUB.B   D1, D2
 		ADDQ.B	#4, D1
