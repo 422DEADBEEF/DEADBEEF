@@ -1,7 +1,7 @@
 *-----------------------------------------------------------
 * Title      : Branch 5 Decode Subroutines
-* Written by : Jeremy DeHaan, Cameron Dillon
-* Date       : 05/16/2017
+* Written by : Jeremy DeHaan
+* Date       : 05/29/2017
 * Description: ADDQ
 *-----------------------------------------------------------
 
