@@ -55,7 +55,12 @@ B5_DATA_H   ADD.B       #$30, D2            ;create hex representation of the nu
             CMP.B       #%11, D3
             BEQ         B5_DATA
 
-            JSR         DC_ADDQ_SZ
+            CMP.B       #1, D4              ; check if we're accessing an address register
+            BNE         B5_DECODE
+            CMP.B       #0, D3              ; and we have a size of byte
+            BEQ         B5_DATA             ; then we have an invalid opcode
+
+B5_DECODE   JSR         DC_ADDQ_SZ
 
             ; put the data into O1String
             MOVEA.L     #O1String, A0
