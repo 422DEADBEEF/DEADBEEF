@@ -14,7 +14,9 @@ start		EQU	$00007000	* ORG and END address
 		ORG	start
 
 * NOP and similar instructions. Should clearly differentiate NOP and RTS from others.
-		LEA     (A5), A2
+		ADDQ.B	#4, D1
+		ADDQ.B	#8, D1
+                LEA     (A5), A2
 		LEA     (A0), A6
 		LEA     data1, A7
                 ROL.B   #2, D1
@@ -33,7 +35,7 @@ start		EQU	$00007000	* ORG and END address
 	        ADDQ.W	#2, D3
 	        ADDQ.L	#5, D6
 	        ADDQ.B  #7, $0001
-	        ADDQ.W  #3, A2
+	        ;ADDQ.B  #3, A2   ;invalid code
 	        ADDQ.L  #6, (A3)
 	        ADDQ.L  #6, -(A3)
 	        ADDQ.L  #6, (A3)+

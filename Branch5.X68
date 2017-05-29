@@ -51,6 +51,10 @@ B5_DATA_H   ADD.B       #$30, D2            ;create hex representation of the nu
 
             MOVE.B      #2, NUMOPERANDS
 
+            ;if we have a size code of 11, this is not a valid opcode
+            CMP.B       #%11, D3
+            BEQ         B5_DATA
+
             JSR         DC_ADDQ_SZ
 
             ; put the data into O1String
