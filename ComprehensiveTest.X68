@@ -16,8 +16,8 @@
 *    MOVE.W              #512, D1
 *    MOVE.W              #%1100101000000000, D2  *Set min value to branch8 with register set to 5
 
-*    MOVE.W              #256, D1       ;; values for brancho
-*    MOVE.W              #$0400, D2
+    MOVE.W              #512, D1       ;; values for brancho
+    MOVE.W              #$0400, D2
 
 *    MOVE.W              #512, D1       ;; values for add/adda
 *    MOVE.W              #$D800, D2
@@ -32,8 +32,8 @@
     *MOVE.W              #$6C00, D6
     *MOVE.W              #$6D00, D7
     
-    MOVE.L              #512, D1
-    MOVE.W              #$7E00, D2
+    *MOVE.L              #512, D1
+    *MOVE.W              #$7E00, D2
     
     
     
@@ -44,8 +44,9 @@ LOOP                    * Generate permutations of bits 0-8 (512 distinct values
     
     MOVE.W              D2, (A0)+       *put them in memory beginning at $10000
     *MOVE.L              
-    *MOVE.W              D2, (A0)+       *put in second value for operands
-    *MOVE.L              D3, (A0)+
+    MOVE.W              D2, (A0)+       *put in second value for operands
+    MOVE.W              D2, (A0)+
+    MOVE.L              D3, (A0)+
     *MOVE.W              
     *MOVE.L              D3, (A0)+
     ADDQ.L              #1, D2
