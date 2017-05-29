@@ -267,8 +267,21 @@ DC_LEA      MOVE.W      D0,D1
             AND.W       #B4_DEST_ADDR, D1
             CMP.W       #B4_DEST_ADDR, D1
             BEQ         B4_LEA_ADDR
+            CMP.W       #B4_INDIRECT_ADDR, D1
+            BEQ         B4_INDIRECT
 
             BRA         B4_DATA
+
+B4_INDIRECT MOVE.W      D0,D1
+            AND.W       #B4_DEST_REG_MASK, D1
+            LEA         O1STRING, A0
+            MOVE.B      #$28, (A0)+         ; move an ( into the string
+            MOVE.B      #$41, (A0)+         ; put a capital A into the string
+            ADD.B       #$30, D1            ; create hex representation of the number
+            MOVE.B      D1, (A0)+           ; move the register number into the string
+            MOVE.B      #$29, (A0)+         ; move an ) into the string
+            MOVE.B      #0, (A0)            ; null terminate the string
+            BRA         B4_LEA_PRNT
 
 B4_LEA_ADDR MOVE.W      D0,D1
             AND.W       #B4_DEST_REG_MASK, D1
@@ -318,9 +331,10 @@ BRANCH4EXIT MOVEM.L     (SP)+, D0-D7/A0-A5
 B4_JSR_MASK             EQU     %0100111010000000
 B4_MOVEM_MASK           EQU     %0100100010000000
 B4_LEA_MASK             EQU     %0100000111000000
-B4_MOVEM_MASK           EQU     %0100100010000000
+
 
 B4_DEST_ADDR            EQU     %0000000000111000
+B4_INDIRECT_ADDR        EQU     %0000000000010000
 B4_DEST_REG_MASK        EQU     %0000000000000111
 B4_LEA_REG_MASK         EQU     %0000111000000000
 B4_MOVEM_DIR_MASK       EQU     %0000010000000000

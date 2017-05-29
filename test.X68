@@ -14,7 +14,9 @@ start		EQU	$00007000	* ORG and END address
 		ORG	start
 
 * NOP and similar instructions. Should clearly differentiate NOP and RTS from others.
-		ROL.B   #2, D1
+		LEA     (A5), A2
+		LEA     (A0), A6
+                ROL.B   #2, D1
 		ROR.W   D2, D3
 		ASL.B   #5, D0
 		ASR.L   #4, D5
@@ -108,6 +110,7 @@ multiply	MULS	D0,D3
 DU1             DC.W    $8ECE
 
 		END	start
+
 
 
 
