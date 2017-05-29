@@ -24,7 +24,12 @@ DC_ADDQ     MOVE.W      D0, D1
             AND.W       #B5_DATA_MASK, D1
             ROL.W       #7, D1
             MOVE.B      D1, D2              ; D2 is data
-            ADD.B       #$30, D2            ;create hex representation of the number
+            CMP.B       #0, D2
+            BNE         B5_DATA_H
+            ADDQ.B      #8, D2
+
+
+B5_DATA_H   ADD.B       #$30, D2            ;create hex representation of the number
 
 
             MOVE.W      D0, D1
