@@ -75,6 +75,12 @@ B12_MUL_IMMEDIATE   CMP.B       #0, D6
                     
                     CMP.B       #1, D7
                     BGT         B12_MUL_ABSLONG
+                    BEQ         B12_MUL_ABSWORD
+
+B12_MUL_BYTE        MOVE.W      (A6)+, D1
+                    AND.W       #$00FF, D1
+                    MOVE.B      #2, param1
+                    BRA         B12_MUL_BUILDOP
                     
 B12_MUL_ABSWORD     MOVE.W      (A6)+, D1
                     MOVE.B      #4, param1
