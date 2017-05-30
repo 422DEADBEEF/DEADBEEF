@@ -10,6 +10,10 @@ BRANCH7
                 CLR.L       D1
                 MOVE.W      (A6)+, D0
                 MOVE.W      D0, D1
+                AND.W       #$F100, D1
+                CMP.W       #$7000, D1
+                BNE         B7_DATA
+                MOVE.W      D0, D1
                 AND.W       MASK_SRCREG, D1
                 ROL.W       #7, D1
                 
@@ -32,10 +36,14 @@ BRANCH7
                 MOVE.L      #MOVEQ_OP, OPSTRING
                 MOVE.B      #2, NUMOPERANDS
                 
-                JSR         PRINTOP
+BRANCH7PRINT    JSR         PRINTOP
                           
 BRANCH7EXIT     MOVEM.L     (SP)+, D0-D7/A0-A5
                 RTS
+                
+B7_DATA         JSR         PREP_DATA
+                BRA         BRANCH7PRINT
+
 
 
 
