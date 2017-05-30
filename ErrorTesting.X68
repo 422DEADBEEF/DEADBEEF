@@ -16,6 +16,9 @@ ADDI_ERROR1         DC.W        $06C0       * ADDI.??   #xxx, D0    **** **** 11
 ADDI_ERROR2         DC.W        $063C       * ADDI.B    #xxx, #xxx  **** **** **00 1***
 ADDI_ERROR3         DC.W        $0448       * ADDI.W    #xxx, A0    **** **** **11 1100
 
+ADDI_ERROR4         DC.W        $0629
+ADDI_ERROR5         DC.W        $0631
+
 
 SUBI_ERROR1         DC.W        $04C0       * SUBI.??   #xxx, D0    **** **** 11** ****
 SUBI_ERROR2         DC.W        $043C       * SUBI.B    #xxx, #xxx  **** **** **00 1***
@@ -75,6 +78,7 @@ OR_ERROR4           DC.W        $8008       * OR.B      A0, D0      **** ***0 **
                     
                     
                     
+
 
 
 
