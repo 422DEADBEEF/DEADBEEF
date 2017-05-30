@@ -21,6 +21,7 @@
                         *            0 = N/A
                         *            1 = word
                         *            2 = long
+                        *            3 = byte
                         * param4.B = num operands
                         *            0 = 1
                         *            anything else = 2
@@ -50,11 +51,15 @@ SIZE_CONTINUE           LEA         O1STRING, A1
                         
                         CMP.B       #0, D1
                         BEQ         P1_NOP
+                        
                         CMP.B       #1, D1
                         BEQ         P1_A_W
                         CMP.B       #2, D1
                         BEQ         P1_A_L
+                        
                         CMP.B       #1, D3
+                        BEQ         P1_L_W
+                        CMP.B       #3, D3
                         BEQ         P1_L_W
                         CMP.B       #2, D3
                         BEQ         P1_L_L
@@ -92,8 +97,14 @@ P1_A_L                  MOVE.L      (A6)+, D5
                         
 P1_L_W                  MOVE.W      (A6)+, D5
                         MOVE.B      #POUND, (A1)+
+                        
+                        CMP.B       #3, D3
+                        BEQ         P1_L_W_CONTINUE
                         MOVE.B      #4, param1
-                        MOVE.L      D5, param2
+                        BRA         P1_L_W_CONTINUE2
+P1_L_W_CONTINUE         MOVE.B      #2, param1
+                        
+P1_L_W_CONTINUE2        MOVE.L      D5, param2
                         MOVE.L      A1, param3
                         JSR         HEX_TO_STRING_SC
                         BRA         EA_P2
@@ -148,6 +159,8 @@ END_PREP_OPERANDS       MOVEM.L     (SP)+, D0-D7/A0-A5
                         
                         
                         
+
+
 
 
 
