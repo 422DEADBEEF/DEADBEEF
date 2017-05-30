@@ -46,7 +46,7 @@ SUBI_OPCODE
                     BRA         B0_DATA
                     
 B0_ADDI_B           MOVE.L      #ADDIB_OP, OPSTRING
-                    MOVEQ       #1, D6                  * Number of words to read
+                    MOVEQ       #3, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_ADDI_W           MOVE.L      #ADDIW_OP, OPSTRING
                     MOVEQ       #1, D6                  * Number of words to read
@@ -57,7 +57,7 @@ B0_ADDI_L           MOVE.L      #ADDIL_OP, OPSTRING
 
 
 B0_SUBI_B           MOVE.L      #SUBIB_OP, OPSTRING
-                    MOVEQ       #1, D6                  * Number of words to read
+                    MOVEQ       #3, D6                  * Number of words to read
                     BRA         B0_DETERMINE_OPERANDS
 B0_SUBI_W           MOVE.L      #SUBIW_OP, OPSTRING
                     MOVEQ       #1, D6                  * Number of words to read
@@ -122,6 +122,7 @@ B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
 B0_AR_MASK          EQU     %0000000000111000
+
 
 
 

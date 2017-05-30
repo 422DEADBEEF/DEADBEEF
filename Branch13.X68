@@ -86,11 +86,14 @@ B13_ADDAddrVALIDATE MOVE.B      #1, D1
                     ADDQ.B      #1, D7
                     BRA         B13_ADD_ENTRY
 
-B13_ADD_VALIDATE    MOVE.B      #0, D1
+B13_ADD_VALIDATE    MOVE.B      D1, param1
+                    MOVE.B      #0, D1
                     CMP.B       #0, D7
                     BNE         B13_ADD_ENTRY
+                    MOVE.B      param1, D1
                     CMP.B       #1, D1
                     BEQ         B13_DATA
+                    MOVE.B      #0, D1
                     
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -141,6 +144,12 @@ B13_MUL_IMMEDIATE   CMP.B       #1, D6
                     
                     CMP.B       #1, D7
                     BGT         B13_MUL_ABSLONG
+                    BEQ         B13_MUL_ABSWORD
+
+B13_MUL_BYTE        MOVE.W      (A6)+, D1
+                    AND.W       #$00FF, D1
+                    MOVE.B      #2, param1
+                    BRA         B13_MUL_BUILDOP
                     
 B13_MUL_ABSWORD     MOVE.W      (A6)+, D1
                     MOVE.B      #4, param1
@@ -164,11 +173,12 @@ B13_CRASH ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ***************************************************************************************
 
-B13_DATA                JSR             PREP_DATA
-                        BRA             BRANCH13PRINT
+B13_DATA            JSR             PREP_DATA
+                    BRA             BRANCH13PRINT
                         
-BRANCH13PRINT           JSR             PRINTOP
-BRANCH13EXIT            MOVEM.L         (SP)+, D0-D7/A0-A5
+BRANCH13PRINT       JSR             PRINTOP
+BRANCH13EXIT        MOVEM.L         (SP)+, D0-D7/A0-A5
+                    RTS
 
 
 B13_OPMODE_MASK         EQU             $01C0
