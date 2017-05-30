@@ -11,6 +11,13 @@
 ***     Args: param1 (BYTE): Register Code
 ***           param2 (BYTE): Mode Code
 ***           param3 (LONG): Address buffer to build string
+***
+***     Return value in ret:
+***           0 = Operand string built (only modes 000 to 100 inclusive)
+***           1 = (xxx).W (no memory pulled, no string built)
+***           2 = (xxx).L (no memory pulled, no string built)
+***           3 = #<data> (no memory pulled, no string built)
+***           4 = Invalid mode/register, treat it as data
 *******************************************
 
 *** EQUATES ***
@@ -154,6 +161,7 @@ NO_PLUS_DC
         
         
         
+
 
 
 
