@@ -75,6 +75,9 @@ B0_DETERMINE_OPERANDS
                     JSR         DECODE_ADDRESS_MODE_AM
                     MOVE.B      ret, D3         * op1 mode
                     
+                    CMP.B       #4, ret
+                    BEQ         B0_DATA
+                    
                     MOVE.W      D0, D1
                     AND.W       MASK_DSTREG, D1     * register
                     MOVE.W      D0, D2              
@@ -86,6 +89,9 @@ B0_DETERMINE_OPERANDS
                     LEA         O2STRING, A1
                     MOVE.L      A1, param3
                     JSR         DECODE_ADDRESS_MODE_AM
+                    
+                    CMP.B       #4, ret
+                    BEQ         B0_DATA
                     
                     MOVE.B      D3, param1
                     MOVE.B      ret, param2
@@ -122,6 +128,7 @@ B0_SUBI_MASK        EQU     %0000001000000000
 B0_SIZE_MASK        EQU     %0000000011000000
 B0_ERROR_CHECK      EQU     %1111110100000000
 B0_AR_MASK          EQU     %0000000000111000
+
 
 
 

@@ -52,6 +52,12 @@ MOVEA_OPCODE            MOVE.B      #2, D7          * D7 = 2 means this is MOVEA
 MOVE_B                  MOVE.L      #MOVEB_OP, OPSTRING
                         MOVE.B      #2, NUMOPERANDS
                         MOVE.B      #1, D6
+                        
+                        MOVE.W      D0, D1                    
+                        AND.W       MASK_DSTMODE, D1
+                        CMP.W       #%0000000000001000, D1
+                        BEQ         B1_DATA
+                        
                         BRA         B1_DETERMINE_OPERANDS
                         
 MOVE_W                  MOVE.L      #MOVEW_OP, OPSTRING
@@ -92,6 +98,8 @@ B1_DETERMINE_OPERANDS
                         JSR         DECODE_ADDRESS_MODE_AM
                         MOVE.B      ret, D3                  * ret, param1
                         
+                        CMP.B       #4, D3
+                        BEQ         B1_DATA
                               
                         MOVE.W      D0, D1
                         AND.W       #DSTREG_MASK, D1
@@ -107,6 +115,9 @@ B1_DETERMINE_OPERANDS
                         LEA         O2STRING, A1
                         MOVE.L      A1, param3
                         JSR         DECODE_ADDRESS_MODE_AM
+                        
+                        CMP.B       #4, ret
+                        BEQ         B1_DATA
                         
                         MOVE.B      D3, param1
                         MOVE.B      ret, param2
@@ -143,6 +154,11 @@ END_BRANCH1             MOVEM.L     (SP)+, D0-D7/A0-A5
 
 B1_MOVEA_MASK           EQU     %0000000111000000
 B1_MOVEA_IDENTIFIER     EQU     %0000000001000000
+
+
+
+
+
 
 
 
