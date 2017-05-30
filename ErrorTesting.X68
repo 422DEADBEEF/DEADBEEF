@@ -11,6 +11,7 @@ START               ORG        $7000
 
                     * Invalid for both MOVE and MOVEA
 MOVE_ERROR          DC.W        $19C0       * MOVE.B    D0, #xxx    **** 1001 11** ****
+MOVE_ERROR2         DC.W        $1040
 
 
 ADDI_ERROR1         DC.W        $06C0       * ADDI.??   #xxx, D0    **** **** 11** ****
@@ -79,6 +80,7 @@ OR_ERROR4           DC.W        $8008       * OR.B      A0, D0      **** ***0 **
                     
                     
                     
+
 
 
 
