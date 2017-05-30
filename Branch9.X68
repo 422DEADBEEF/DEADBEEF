@@ -40,6 +40,10 @@ B9_DESTTEST MOVE.B      D2, D5
             AND.B       #B9_DEST_TEST, D5
             CMP.B       #0, D5
             BEQ         D_DEST
+            CMP.B       #0, D3
+            BEQ         B9_DATA
+            CMP.B       #1, D3
+            BEQ         B9_DATA
             BRA         EA_DEST
 
 B9_DATA     JSR         PREP_DATA
