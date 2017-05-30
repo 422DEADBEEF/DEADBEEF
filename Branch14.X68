@@ -239,6 +239,10 @@ B14_DR_BY_ID
             MOVE.B      #$23, (A1)+                 ; put a # in the string
             MOVE.B      #$24, (A1)+                 ; put a $ in the string
             MOVE.B      #$30, (A1)+                 ; put a 0 in the string
+            CMP.B       #0, D2
+            BNE         B14_ID_ASCII
+            ADD.B       #8, D2
+B14_ID_ASCII
             ADD.B       #$30, D2                    ; convert D2 to a ascii number
             MOVE.B      D2, (A1)+
             MOVE.B      #0, (A1)                    ; null terminate the string
