@@ -30,7 +30,7 @@ DC_SUB      MOVE.B      #2, NUMOPERANDS         ; do this here now, if it is dat
 
 
             MOVE.B      D2, D5
-            LSL.B       #2, D5
+            AND.B       #B9_DEST_TEST, D5
             CMP.B       #0, D5
             BEQ         D_DEST
             BRA         EA_DEST
@@ -121,14 +121,14 @@ DC_SUB_ID   CMP.B       #1, D7              ; check if 1 is in D7 (it shouldn't 
             MOVE.B      #$23, (A2)+
             BRA         DC_SUB_LA
 
-ID_W       MOVE.B      #$23, (A2)+
+ID_W        MOVE.B      #$23, (A2)+
             BRA         DC_SUB_WA
 
 
-ID_B       MOVE.B      #$23, (A2)+
+ID_B        MOVE.B      #$23, (A2)+
             MOVE.B      #2, param1
             CLR         D6
-            MOVE.B      (A6)+, D6
+            MOVE.W      (A6)+, D6
             MOVE.L      D6, param2
             MOVE.L      A2, param3
             JSR         HEX_TO_STRING_SC    ; build opcode address as a string
@@ -161,6 +161,8 @@ B9_OPMODE_MASK          EQU     %0000000111000000
 
 B9_EA_MODE_MASK         EQU     %0000000000111000
 B9_EA_REG_MASK          EQU     %0000000000000111
+
+B9_DEST_TEST            EQU     %100
 
 
 
