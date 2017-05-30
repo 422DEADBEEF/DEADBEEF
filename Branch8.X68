@@ -76,6 +76,12 @@ B8_DU_IMMEDIATE     CMP.B       #0, D6
                     
                     CMP.B       #1, D7
                     BGT         B8_DU_ABSLONG
+                    BEQ         B8_DU_ABSWORD
+
+B8_DU_BYTE          MOVE.W      (A6)+, D1
+                    AND.W       #$00FF, D1
+                    MOVE.B      #2, param1
+                    BRA         B8_DU_BUILDOP
                     
 B8_DU_ABSWORD       MOVE.W      (A6)+, D1
                     MOVE.B      #4, param1
