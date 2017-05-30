@@ -14,9 +14,22 @@ start		EQU	$00007000	* ORG and END address
 		ORG	start
 
 * NOP and similar instructions. Should clearly differentiate NOP and RTS from others.
-		ADDQ.B	#4, D1
+                ROL.W   $0000
+TEST_OP5        DC.W    $E1D0
+                ROL.B   #8, D1
+                LSL.B   #8, D1
+                ASL.B   #8, D1
+TEST_OP         DC.W    $943C,$000A
+TEST_OP2        DC.W    $947C,$000A
+TEST_OP3        DC.W    $9102
+TEST_OP4        DC.W    $914A
+		SUB.B   #10, D2
+		SUB.W   #10, D2
+		SUB.L   #10, D2
+                ADDQ.B	#4, D1
 		ADDQ.B	#8, D1
                 LEA     (A5), A2
+                JSR     (A4)
 		LEA     (A0), A6
 		LEA     data1, A7
                 ROL.B   #2, D1
@@ -31,6 +44,9 @@ start		EQU	$00007000	* ORG and END address
 		LEA     data1, A7
 		LEA     $0001, A0
 		SUB.B   D1, D2
+		SUB.B   #10, D2
+		SUB.W   #10, D2
+		SUB.L   #10, D2
 		ADDQ.B	#4, D1
 	        ADDQ.W	#2, D3
 	        ADDQ.L	#5, D6
@@ -113,6 +129,8 @@ multiply	MULS	D0,D3
 DU1             DC.W    $8ECE
 
 		END	start
+
+
 
 
 

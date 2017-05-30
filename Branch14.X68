@@ -296,7 +296,7 @@ B14_ROL_EA  MOVE.L      #ROLW_OP, OPSTRING
 B14_AS_EA   MOVE.W      D0, D1
             AND.W       #B14_DIR_MASK, D1
             CMP.W       #B14_LEFT_DIR, D1
-            BEQ         B14_ROL_EA
+            BEQ         B14_ASL_EA
 
 B14_ASR_EA  MOVE.L      #ASRW_OP, OPSTRING
             BRA         B14_EA_DC
