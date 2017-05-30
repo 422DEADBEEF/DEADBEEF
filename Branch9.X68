@@ -28,8 +28,15 @@ DC_SUB      MOVE.B      #2, NUMOPERANDS         ; do this here now, if it is dat
             MOVE.W      D0, D4
             AND.W       #B9_EA_REG_MASK, D4     ; Effective Address Register
 
-
             MOVE.B      D2, D5
+            AND.B       #B9_SIZE_TEST, D5
+            CMP.B       #0, D5
+            BNE         B9_DESTTEST
+            CMP.B       #%001, D3
+            BEQ         B9_DATA
+
+
+B9_DESTTEST MOVE.B      D2, D5
             AND.B       #B9_DEST_TEST, D5
             CMP.B       #0, D5
             BEQ         D_DEST
@@ -163,6 +170,7 @@ B9_EA_MODE_MASK         EQU     %0000000000111000
 B9_EA_REG_MASK          EQU     %0000000000000111
 
 B9_DEST_TEST            EQU     %100
+B9_SIZE_TEST            EQU     %11
 
 
 
