@@ -18,8 +18,12 @@ MAIN_CONTINUE
             MOVEA.L     STARTADDR, A6
             
             *----------PageSize=30-----------*
-            MOVE.B      #3, D1      * counter
-            MOVE.B      #30, D2     
+            MOVE.B      #5, D1      * counter
+            MOVE.B      #30, D2
+            
+            LEA         CRETURN, A1
+            MOVE.B      #14,D0
+            TRAP        #15
 
 MAIN_LOOP   CMPA.L      ENDADDR, A6
             BGE         PRGM_END
@@ -74,6 +78,9 @@ ADDRESS_LOOP
             MOVE.B      D1, param2
             JSR         CNVFRMASCII
 
+            LEA         CRETURN, A1
+            MOVE.B      #14,D0
+            TRAP        #15
 
             LEA         ENDMSSG, A1         ; load the end message into A1
             MOVE.B      #14,D0              ;
@@ -204,6 +211,7 @@ CR          EQU     $0D
 LF          EQU     $0A
 POUND       EQU     $23
 
+CRETURN     DC.B    ' ',CR,LF,0
 MSSG        DC.B    'Please enter start and ending memory addresses.',CR,LF,0
 STARTMSSG   DC.B    'Start address: ',0
 ENDMSSG     DC.B    'End address: ',0
@@ -358,6 +366,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 

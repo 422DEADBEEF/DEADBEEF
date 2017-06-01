@@ -14,6 +14,9 @@ MOVE_ERROR          DC.W        $19C0       * MOVE.B    D0, #xxx    **** 1001 11
 MOVE_ERROR2         DC.W        $1040
 MOVE_ERROR3         DC.W        $1008
 
+MOVE_ERROR4         DC.W        $183C
+MOVE_ERROR4a        DC.W        $1040
+
 
 ADDI_ERROR1         DC.W        $06C0       * ADDI.??   #xxx, D0    **** **** 11** ****
 ADDI_ERROR2         DC.W        $063C       * ADDI.B    #xxx, #xxx  **** **** **00 1***
@@ -92,6 +95,7 @@ OR_ERROR4           DC.W        $8008       * OR.B      A0, D0      **** ***0 **
                     
                     
                     
+
 
 
 
