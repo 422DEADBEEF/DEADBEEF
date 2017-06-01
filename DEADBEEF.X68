@@ -55,6 +55,8 @@ PRGM_END
             
             CMP.B       #$79, D1
             BEQ         START
+            CMP.B       #$59, D1
+            BEQ         START
             
             SIMHALT                         ; halt simulator
             
@@ -102,12 +104,19 @@ END_ADDRESS_LOOP
 
             MOVE.L      STARTADDR, D3
             MOVE.L      ENDADDR, D4
+            
+            MOVE.B      #24, D5
+            LSR.L       D5, D3
+            LSR.L       D5, D4
+            
+            CMP.W       #0, D3
+            BNE         START_RANGE_ERROR
+            CMP.W       #0, D4
+            BNE         END_RANGE_ERROR
+            MOVE.L      STARTADDR, D3
+            MOVE.L      ENDADDR, D4         
             CMP.L       D3, D4
             BLE         RANGE_ERROR
-            CMP.L       #$00FFFFFE, D3
-            BGT         START_RANGE_ERROR
-            CMP.L       #$00FFFFFE, D4
-            BGT         END_RANGE_ERROR
             AND.L       #$0000FFFF, D3
             DIVU.W      #2, D3
             SWAP        D3
@@ -310,6 +319,10 @@ RORB_OP     DC.B    'ROR.B   ',0
 RORW_OP     DC.B    'ROR.W   ',0
 RORL_OP     DC.B    'ROR.L   ',0
 
+BCC_OP      DC.B    'BCC     ',0    *Deprecated
+BLT_OP      DC.B    'BLT     ',0    *Deprecated
+BGE_OP      DC.B    'BGE     ',0    *Deprecated
+
 BCCB_OP     DC.B    'BCC.B   ',0
 BLTB_OP     DC.B    'BLT.B   ',0
 BGEB_OP     DC.B    'BGE.B   ',0
@@ -375,6 +388,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
