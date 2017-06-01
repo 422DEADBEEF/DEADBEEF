@@ -310,9 +310,13 @@ RORB_OP     DC.B    'ROR.B   ',0
 RORW_OP     DC.B    'ROR.W   ',0
 RORL_OP     DC.B    'ROR.L   ',0
 
-BCC_OP      DC.B    'BCC     ',0
-BLT_OP      DC.B    'BLT     ',0
-BGE_OP      DC.B    'BGE     ',0
+BCCB_OP     DC.B    'BCC.B   ',0
+BLTB_OP     DC.B    'BLT.B   ',0
+BGEB_OP     DC.B    'BGE.B   ',0
+
+BCCW_OP     DC.B    'BCC.W   ',0
+BLTW_OP     DC.B    'BLT.W   ',0
+BGEW_OP     DC.B    'BGE.W   ',0
 
 JSR_OP      DC.B    'JSR     ',0
 RTS_OP      DC.B    'RTS',0
@@ -371,6 +375,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
