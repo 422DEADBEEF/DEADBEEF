@@ -18,7 +18,7 @@ MAIN_CONTINUE
             MOVEA.L     STARTADDR, A6
             
             *----------PageSize=30-----------*
-            MOVE.B      #5, D1      * counter
+            MOVE.B      #6, D1      * counter
             MOVE.B      #30, D2
             
             LEA         CRETURN, A1
@@ -66,6 +66,10 @@ PRGM_START
             TRAP        #15                 ; display it
                         
 ADDRESS_LOOP
+            LEA         ADDRHEADER, A1
+            MOVE.B      #14, D0
+            TRAP        #15
+            
             LEA         STARTMSSG, A1       ; load the start message into A1
             MOVE.B      #14,D0              ;
             TRAP        #15                 ; display it
@@ -212,9 +216,10 @@ LF          EQU     $0A
 POUND       EQU     $23
 
 CRETURN     DC.B    ' ',CR,LF,0
+ADDRHEADER  DC.B    'Addresses must be an even number of characters and contain valid hex digits.',CR,LF,0
 MSSG        DC.B    'Please enter start and ending memory addresses.',CR,LF,0
-STARTMSSG   DC.B    'Start address: ',0
-ENDMSSG     DC.B    'End address: ',0
+STARTMSSG   DC.B    'Start address (inclusive): ',0
+ENDMSSG     DC.B    'End address (exclusive): ',0
 BREAKMSG    DC.B    'Press any key to continue... ',0
 ERRMSG      DC.B    'Press any key to restart...',0
 RESTMSG     DC.B    'If you would like to disassemble another program, press y.',CR,LF,'If you would like to exit, press any other key...',CR,LF,0
@@ -366,6 +371,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
