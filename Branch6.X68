@@ -9,6 +9,7 @@
 BRANCH6         MOVEM.L     D0-D7/A0-A5, -(SP)
                 MOVE.W      (A6)+, D0
                 MOVE.W      D0, D1
+                CLR.L       D2
                 
                 AND.W       #B6_CONDITION_MASK, D1
                 CMP.W       #B6_BRA, D1
@@ -27,19 +28,19 @@ BRANCH6         MOVEM.L     D0-D7/A0-A5, -(SP)
                 BRA         BRANCH6PRINT
                 
 DC_BRANCH_ALWAYS
-                MOVE.L      #BRA_OP, OPSTRING
+                MOVE.W      #0, D2
                 BRA         B6_GRAB_DISPLACEMENT
                 
 DC_BRANCH_CC
-                MOVE.L      #BCC_OP, OPSTRING
+                MOVE.W      #2, D2
                 BRA         B6_GRAB_DISPLACEMENT
 
 DC_BRANCH_GE
-                MOVE.L      #BGE_OP, OPSTRING
+                MOVE.W      #4, D2
                 BRA         B6_GRAB_DISPLACEMENT
 
 DC_BRANCH_LT
-                MOVE.L      #BLT_OP, OPSTRING
+                MOVE.W      #6, D2
                 BRA         B6_GRAB_DISPLACEMENT
                        
                 
@@ -62,12 +63,51 @@ B6_POSITIVE
                 
 B6_GRAB_OP
                 MOVEA.W     (A6)+, A1
+                ADDQ.B      #1, D2
                 BRA         B6_CALC_ADDRESS
                 
 B6_CALC_ADDRESS
                 ADDA.L      A1, A0
                 MOVE.L      A0, D0
                 
+                MULS.W      #6, D2
+                LEA         B6_OP_JMPTABLE, A3
+                JMP         0(A3, D2)
+                                        
+B6_OP_JMPTABLE  JMP         B6_BRAB.L
+                JMP         B6_BRAW.L
+                JMP         B6_CCB.L
+                JMP         B6_CCW.L
+                JMP         B6_GEB.L
+                JMP         B6_GEW.L
+                JMP         B6_LTB.L
+                JMP         B6_LTW.L
+                
+B6_BRAB         MOVE.L      #BRAB_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_BRAW         MOVE.L      #BRAW_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_CCB          MOVE.L      #BCCB_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_CCW          MOVE.L      #BCCW_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_GEB          MOVE.L      #BGEB_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_GEW          MOVE.L      #BGEW_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_LTB          MOVE.L      #BLTB_OP, OPSTRING
+                BRA         B6_END_JMP
+                
+B6_LTW          MOVE.L      #BLTW_OP, OPSTRING
+                BRA         B6_END_JMP
+               
+B6_END_JMP 
                 MOVE.B      #1, NUMOPERANDS
                 MOVE.B      #8, param1
                 MOVE.L      D0, param2
@@ -86,6 +126,8 @@ B6_BRA                  EQU     $0000
 B6_CC                   EQU     $0400
 B6_GE                   EQU     $0C00
 B6_LT                   EQU     $0D00
+
+
 
 
 *~Font name~Courier New~

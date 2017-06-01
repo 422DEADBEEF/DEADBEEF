@@ -321,8 +321,8 @@ BGEW_OP     DC.B    'BGE.W   ',0
 JSR_OP      DC.B    'JSR     ',0
 RTS_OP      DC.B    'RTS',0
 
-BRA_OP      DC.B    'BRA     ',0
-
+BRAB_OP     DC.B    'BRA.B   ',0
+BRAW_OP     DC.B    'BRA.W   ',0
 
 D0_STRING   DC.W    'D0',0
 D1_STRING   DC.W    'D1',0
