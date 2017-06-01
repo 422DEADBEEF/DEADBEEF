@@ -166,11 +166,14 @@ B4_MOVEM_ISWORD
 B4_MOVEM_REGfirst  
             MOVEA.L     param3, A0                              ; keep track of which buffer we used
             MOVEA.L     A0, A1                                  ; keep track of current location in string
+
+            MOVE.W      (A6), D5
+            CMP.W       #0, D5
+            BEQ         B4_DATA
+            MOVE.W      (A6)+, D5
             
             MOVE.L      param3, -(SP)
             MOVE.B      param2, -(SP)
-          
-            MOVE.W      (A6)+, D5
 
             ROR.W       #8, D5
             MOVE.B      #0, D1
@@ -359,6 +362,7 @@ B4_MOVEM_SIZE_MASK      EQU     %0000000001000000
 B4_DEST_LADDR           EQU     %0000000000111001
 
 B4_MOVEM_REGtoMEM       EQU     0
+
 
 
 
