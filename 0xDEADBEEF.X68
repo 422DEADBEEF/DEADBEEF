@@ -6,7 +6,6 @@
 *-----------------------------------------------------------
             ORG         $1000
 START:                  ; first instruction of program
-            INCLUDE     "ComprehensiveTest.X68"
             
             MOVE.W      #$FF00, D1
             MOVE.B      #11, D0
@@ -388,6 +387,7 @@ OPSIZEC_L       DC.W    $2000
 
 
             END     START        ; last line of source
+
 
 
 
